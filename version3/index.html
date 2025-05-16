@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guard — частная охрана</title>
+    <meta name="description" content="Надежная частная охранная организация. Физическая охрана объектов, пультовая охрана, сопровождение грузов и лиц.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0f172a',
+                        darker: '#020617',
+                        primary: '#1e3a8a',
+                        secondary: '#1e40af',
+                        accent: '#eab308',
+                        accentDark: '#ca8a04',
+                        light: '#f8fafc',
+                    },
+                    fontFamily: {
+                        sans: ['Roboto', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "linear-gradient(rgba(2, 6, 23, 0.8), rgba(2, 6, 23, 0.8)), url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')",
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans text-gray-100 bg-dark antialiased">
+    <!-- Header -->
+    <header id="header" class="fixed w-full z-50 transition-all duration-300 bg-darker bg-opacity-95">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <a href="#" class="flex items-center">
+                    <span class="text-2xl font-black tracking-wider">
+                        <span class="text-accent">GUARD</span>
+                    </span>
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex space-x-8">
+                    <a href="#services" class="text-sm uppercase tracking-wider font-medium hover:text-accent transition-colors duration-300">Услуги</a>
+                    <a href="#about" class="text-sm uppercase tracking-wider font-medium hover:text-accent transition-colors duration-300">О компании</a>
+                    <a href="#portfolio" class="text-sm uppercase tracking-wider font-medium hover:text-accent transition-colors duration-300">Кейсы</a>
+                    <a href="#pricing" class="text-sm uppercase tracking-wider font-medium hover:text-accent transition-colors duration-300">Тарифы</a>
+                    <a href="#testimonials" class="text-sm uppercase tracking-wider font-medium hover:text-accent transition-colors duration-300">Отзывы</a>
+                    <a href="#faq" class="text-sm uppercase tracking-wider font-medium hover:text-accent transition-colors duration-300">FAQ</a>
+                    <a href="#contact" class="text-sm uppercase tracking-wider font-medium hover:text-accent transition-colors duration-300">Контакты</a>
+                </nav>
+                
+                <div class="hidden lg:block">
+                    <a href="#contact" class="inline-block px-6 py-2 bg-accent hover:bg-accentDark text-dark font-medium rounded-sm transition-colors duration-300">
+                        Получить консультацию
+                    </a>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <button id="menu-toggle" class="lg:hidden text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <nav id="mobile-menu" class="lg:hidden hidden py-4 border-t border-gray-800">
+                <div class="flex flex-col space-y-4">
+                    <a href="#services" class="text-sm uppercase tracking-wider font-medium hover:text-accent transition-colors duration-300">Услуги</a>
+                    <a href="#about" class="text-sm uppercase tracking-wider font-medium hover:text-accent transition-colors duration-300">О компании</a>
+                    <a href="#portfolio" class="text-sm uppercase tracking-wider font-medium hover:text-accent transition-colors duration-300">Кейсы</a>
+                    <a href="#pricing" class="text-sm uppercase tracking-wider font-medium hover:text-accent transition-colors duration-300">Тарифы</a>
+                    <a href="#testimonials" class="text-sm uppercase tracking-wider font-medium hover:text-accent transition-colors duration-300">Отзывы</a>
+                    <a href="#faq" class="text-sm uppercase tracking-wider font-medium hover:text-accent transition-colors duration-300">FAQ</a>
+                    <a href="#contact" class="text-sm uppercase tracking-wider font-medium hover:text-accent transition-colors duration-300">Контакты</a>
+                    <a href="#contact" class="inline-block px-6 py-2 bg-accent hover:bg-accentDark text-dark font-medium rounded-sm transition-colors duration-300 text-center">
+                        Получить консультацию
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="bg-hero-pattern bg-cover bg-center min-h-screen flex items-center">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl">
+                <h1 class="text-5xl md:text-6xl font-black leading-tight mb-4">
+                    <span class="text-accent">GUARD</span> — частная охрана
+                </h1>
+                <p class="text-xl md:text-2xl font-light mb-8 text-gray-300">
+                    Надежность. Законность. Защита 24/7.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#contact" class="px-8 py-4 bg-accent hover:bg-accentDark text-dark font-medium rounded-sm transition-colors duration-300 text-center">
+                        Получить консультацию
+                    </a>
+                    <a href="#services" class="px-8 py-4 border border-white hover:bg-white hover:text-dark text-white font-medium rounded-sm transition-colors duration-300 text-center">
+                        Наши услуги
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-primary">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <span class="inline-block px-3 py-1 bg-accent text-dark text-xs font-semibold rounded-sm mb-3">УСЛУГИ</span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Комплексные решения безопасности</h2>
+                <p class="text-gray-300 max-w-2xl mx-auto">Профессиональная защита для вашего бизнеса, имущества и жизни</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="group bg-secondary p-8 rounded-sm hover:bg-accent transition-colors duration-300">
+                    <div class="w-16 h-16 flex items-center justify-center mb-6 bg-dark rounded-sm group-hover:bg-accentDark transition-colors duration-300">
+                        <svg class="w-8 h-8 text-accent group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-dark">Физическая охрана объектов</h3>
+                    <p class="text-gray-300 group-hover:text-dark">Профессиональная охрана коммерческих и частных объектов с использованием современных технических средств.</p>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="group bg-secondary p-8 rounded-sm hover:bg-accent transition-colors duration-300">
+                    <div class="w-16 h-16 flex items-center justify-center mb-6 bg-dark rounded-sm group-hover:bg-accentDark transition-colors duration-300">
+                        <svg class="w-8 h-8 text-accent group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-dark">Охрана мероприятий</h3>
+                    <p class="text-gray-300 group-hover:text-dark">Обеспечение безопасности на частных и корпоративных мероприятиях любого масштаба.</p>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="group bg-secondary p-8 rounded-sm hover:bg-accent transition-colors duration-300">
+                    <div class="w-16 h-16 flex items-center justify-center mb-6 bg-dark rounded-sm group-hover:bg-accentDark transition-colors duration-300">
+                        <svg class="w-8 h-8 text-accent group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-dark">Пультовая охрана</h3>
+                    <p class="text-gray-300 group-hover:text-dark">Круглосуточный мониторинг объектов с мгновенным реагированием на сигналы тревоги.</p>
+                </div>
+                
+                <!-- Service 4 -->
+                <div class="group bg-secondary p-8 rounded-sm hover:bg-accent transition-colors duration-300">
+                    <div class="w-16 h-16 flex items-center justify-center mb-6 bg-dark rounded-sm group-hover:bg-accentDark transition-colors duration-300">
+                        <svg class="w-8 h-8 text-accent group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-dark">Монтаж систем безопасности</h3>
+                    <p class="text-gray-300 group-hover:text-dark">Установка и настройка современных систем видеонаблюдения, сигнализации и контроля доступа.</p>
+                </div>
+                
+                <!-- Service 5 -->
+                <div class="group bg-secondary p-8 rounded-sm hover:bg-accent transition-colors duration-300">
+                    <div class="w-16 h-16 flex items-center justify-center mb-6 bg-dark rounded-sm group-hover:bg-accentDark transition-colors duration-300">
+                        <svg class="w-8 h-8 text-accent group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-dark">Сопровождение грузов и лиц</h3>
+                    <p class="text-gray-300 group-hover:text-dark">Профессиональное сопровождение ценных грузов и VIP-персон с гарантией безопасности.</p>
+                </div>
+                
+                <!-- Service 6 -->
+                <div class="group bg-secondary p-8 rounded-sm hover:bg-accent transition-colors duration-300">
+                    <div class="w-16 h-16 flex items-center justify-center mb-6 bg-dark rounded-sm group-hover:bg-accentDark transition-colors duration-300">
+                        <svg class="w-8 h-8 text-accent group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-dark">Консультации по безопасности</h3>
+                    <p class="text-gray-300 group-hover:text-dark">Профессиональный аудит безопасности и разработка индивидуальных решений для вашего бизнеса.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-dark">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <span class="inline-block px-3 py-1 bg-accent text-dark text-xs font-semibold rounded-sm mb-3">О КОМПАНИИ</span>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Более 10 лет обеспечиваем безопасность</h2>
+                    <p class="text-gray-300 mb-8">Компания Guard — это команда профессионалов с многолетним опытом работы в сфере безопасности. Мы предоставляем полный спектр услуг по защите бизнеса, имущества и жизни наших клиентов.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 flex items-center justify-center bg-accent rounded-sm mr-4 flex-shrink-0">
+                                <svg class="w-6 h-6 text-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold mb-1">Лицензированные сотрудники</h3>
+                                <p class="text-gray-300">Все наши охранники имеют необходимые разрешения и регулярно проходят аттестацию.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 flex items-center justify-center bg-accent rounded-sm mr-4 flex-shrink-0">
+                                <svg class="w-6 h-6 text-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold mb-1">Индивидуальный подход</h3>
+                                <p class="text-gray-300">Работаем с юр. и физ. лицами, учитывая особенности каждого клиента.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 flex items-center justify-center bg-accent rounded-sm mr-4 flex-shrink-0">
+                                <svg class="w-6 h-6 text-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold mb-1">Строгий контроль качества</h3>
+                                <p class="text-gray-300">Постоянный мониторинг работы сотрудников и техники.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 flex items-center justify-center bg-accent rounded-sm mr-4 flex-shrink-0">
+                                <svg class="w-6 h-6 text-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold mb-1">Круглосуточная поддержка</h3>
+                                <p class="text-gray-300">Оперативное реагирование на любые ситуации 24/7.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="#contact" class="inline-block px-6 py-3 bg-accent hover:bg-accentDark text-dark font-medium rounded-sm transition-colors duration-300">
+                        Узнать больше о компании
+                    </a>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="aspect-w-1 aspect-h-1">
+                        <img src="https://images.unsplash.com/photo-1582139329536-e7284fece509?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Охранник" class="object-cover w-full h-full">
+                    </div>
+                    <div class="aspect-w-1 aspect-h-1 mt-8">
+                        <img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Камера наблюдения" class="object-cover w-full h-full">
+                    </div>
+                    <div class="aspect-w-1 aspect-h-1 -mt-8">
+                        <img src="https://images.unsplash.com/photo-1521791055366-0d553872125f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Охрана груза" class="object-cover w-full h-full">
+                    </div>
+                    <div class="aspect-w-1 aspect-h-1">
+                        <img src="https://images.unsplash.com/photo-1551818255-e6e10975bc17?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Охрана мероприятия" class="object-cover w-full h-full">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16">
+                <div class="bg-secondary p-6 rounded-sm text-center">
+                    <div class="text-4xl font-bold text-accent mb-2">10+</div>
+                    <p class="text-gray-300">Лет на рынке</p>
+                </div>
+                <div class="bg-secondary p-6 rounded-sm text-center">
+                    <div class="text-4xl font-bold text-accent mb-2">500+</div>
+                    <p class="text-gray-300">Клиентов</p>
+                </div>
+                <div class="bg-secondary p-6 rounded-sm text-center">
+                    <div class="text-4xl font-bold text-accent mb-2">100+</div>
+                    <p class="text-gray-300">Сотрудников</p>
+                </div>
+                <div class="bg-secondary p-6 rounded-sm text-center">
+                    <div class="text-4xl font-bold text-accent mb-2">24/7</div>
+                    <p class="text-gray-300">Поддержка</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-20 bg-primary">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <span class="inline-block px-3 py-1 bg-accent text-dark text-xs font-semibold rounded-sm mb-3">КЕЙСЫ</span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Примеры выполненных работ</h2>
+                <p class="text-gray-300 max-w-2xl mx-auto">Наши успешные проекты по обеспечению безопасности различных объектов</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Case 1 -->
+                <div class="group relative overflow-hidden rounded-sm">
+                    <img src="https://images.unsplash.com/photo-1577495508048-b635879837f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80" alt="Охрана склада" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent opacity-90 group-hover:opacity-70 transition-opacity duration-300"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6">
+                        <h3 class="text-xl font-bold mb-2">Охрана склада 5000 м²</h3>
+                        <p class="text-gray-300 text-sm mb-4">Комплексная система безопасности с видеонаблюдением и физической охраной</p>
+                        <a href="#contact" class="inline-block text-accent group-hover:text-white font-medium transition-colors duration-300">Подробнее →</a>
+                    </div>
+                </div>
+                
+                <!-- Case 2 -->
+                <div class="group relative overflow-hidden rounded-sm">
+                    <img src="https://images.unsplash.com/photo-1521791055366-0d553872125f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Сопровождение груза" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent opacity-90 group-hover:opacity-70 transition-opacity duration-300"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6">
+                        <h3 class="text-xl font-bold mb-2">Сопровождение груза в ночное время</h3>
+                        <p class="text-gray-300 text-sm mb-4">Безопасная транспортировка ценного груза с вооруженной охраной</p>
+                        <a href="#contact" class="inline-block text-accent group-hover:text-white font-medium transition-colors duration-300">Подробнее →</a>
+                    </div>
+                </div>
+                
+                <!-- Case 3 -->
+                <div class="group relative overflow-hidden rounded-sm">
+                    <img src="https://images.unsplash.com/photo-1551818255-e6e10975bc17?ixlib=rb-1.2.1&auto=format&fit=crop&w=1225&q=80" alt="Охрана мероприятия" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent opacity-90 group-hover:opacity-70 transition-opacity duration-300"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6">
+                        <h3 class="text-xl font-bold mb-2">Охрана бизнес-форума</h3>
+                        <p class="text-gray-300 text-sm mb-4">Обеспечение безопасности мероприятия с участием 500+ человек</p>
+                        <a href="#contact" class="inline-block text-accent group-hover:text-white font-medium transition-colors duration-300">Подробнее →</a>
+                    </div>
+                </div>
+                
+                <!-- Case 4 -->
+                <div class="group relative overflow-hidden rounded-sm">
+                    <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Охрана офиса" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent opacity-90 group-hover:opacity-70 transition-opacity duration-300"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6">
+                        <h3 class="text-xl font-bold mb-2">Охрана бизнес-центра</h3>
+                        <p class="text-gray-300 text-sm mb-4">Круглосуточная охрана офисного здания класса А</p>
+                        <a href="#contact" class="inline-block text-accent group-hover:text-white font-medium transition-colors duration-300">Подробнее →</a>
+                    </div>
+                </div>
+                
+                <!-- Case 5 -->
+                <div class="group relative overflow-hidden rounded-sm">
+                    <img src="https://images.unsplash.com/photo-1558959356-2d5b6cdc5c97?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Монтаж видеонаблюдения" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent opacity-90 group-hover:opacity-70 transition-opacity duration-300"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6">
+                        <h3 class="text-xl font-bold mb-2">Монтаж системы видеонаблюдения</h3>
+                        <p class="text-gray-300 text-sm mb-4">Установка 48 камер на производственном объекте</p>
+                        <a href="#contact" class="inline-block text-accent group-hover:text-white font-medium transition-colors duration-300">Подробнее →</a>
+                    </div>
+                </div>
+                
+                <!-- Case 6 -->
+                <div class="group relative overflow-hidden rounded-sm">
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Пультовая охрана" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent opacity-90 group-hover:opacity-70 transition-opacity duration-300"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6">
+                        <h3 class="text-xl font-bold mb-2">Пультовая охрана сети магазинов</h3>
+                        <p class="text-gray-300 text-sm mb-4">Подключение 12 торговых точек к единому пульту охраны</p>
+                        <a href="#contact" class="inline-block text-accent group-hover:text-white font-medium transition-colors duration-300">Подробнее →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 bg-dark">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <span class="inline-block px-3 py-1 bg-accent text-dark text-xs font-semibold rounded-sm mb-3">ТАРИФЫ</span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Выберите оптимальный вариант охраны</h2>
+                <p class="text-gray-300 max-w-2xl mx-auto">Индивидуальные решения для любого бюджета и требований безопасности</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Pricing 1 -->
+                <div class="bg-secondary rounded-sm overflow-hidden transition-transform hover:translate-y-[-10px] duration-300">
+                    <div class="p-6 border-b border-gray-700">
+                        <h3 class="text-xl font-bold mb-1">Базовый</h3>
+                        <p class="text-gray-300 text-sm">Для небольших объектов</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-end mb-6">
+                            <span class="text-3xl font-bold">от 30 000 ₽</span>
+                            <span class="text-gray-300 ml-1">/мес</span>
+                        </div>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Охрана 8 ч/день</span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>1 пост охраны</span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Без оборудования</span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Ежедневные отчеты</span>
+                            </li>
+                        </ul>
+                        <a href="#contact" class="block text-center px-6 py-3 bg-accent hover:bg-accentDark text-dark font-medium rounded-sm transition-colors duration-300">
+                            Оставить заявку
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Pricing 2 -->
+                <div class="bg-secondary rounded-sm overflow-hidden transition-transform hover:translate-y-[-10px] duration-300">
+                    <div class="p-6 border-b border-gray-700">
+                        <h3 class="text-xl font-bold mb-1">Стандарт</h3>
+                        <p class="text-gray-300 text-sm">Для средних объектов</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-end mb-6">
+                            <span class="text-3xl font-bold">от 60 000 ₽</span>
+                            <span class="text-gray-300 ml-1">/мес</span>
+                        </div>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Охрана 24/7</span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>2 поста охраны</span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Тревожная кнопка</span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Мобильное приложение</span>
+                            </li>
+                        </ul>
+                        <a href="#contact" class="block text-center px-6 py-3 bg-accent hover:bg-accentDark text-dark font-medium rounded-sm transition-colors duration-300">
+                            Оставить заявку
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Pricing 3 -->
+                <div class="bg-secondary rounded-sm overflow-hidden transition-transform hover:translate-y-[-10px] duration-300 relative">
+                    <div class="absolute top-0 right-0 bg-accent text-dark px-3 py-1 text-xs font-semibold">Популярный</div>
+                    <div class="p-6 border-b border-gray-700">
+                        <h3 class="text-xl font-bold mb-1">Премиум</h3>
+                        <p class="text-gray-300 text-sm">Для крупных объектов</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-end mb-6">
+                            <span class="text-3xl font-bold">от 100 000 ₽</span>
+                            <span class="text-gray-300 ml-1">/мес</span>
+                        </div>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Охрана 24/7</span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>3+ постов охраны</span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Видеонаблюдение</span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Личный менеджер</span>
+                            </li>
+                        </ul>
+                        <a href="#contact" class="block text-center px-6 py-3 bg-accent hover:bg-accentDark text-dark font-medium rounded-sm transition-colors duration-300">
+                            Оставить заявку
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Pricing 4 -->
+                <div class="bg-secondary rounded-sm overflow-hidden transition-transform hover:translate-y-[-10px] duration-300">
+                    <div class="p-6 border-b border-gray-700">
+                        <h3 class="text-xl font-bold mb-1">Индивидуальный</h3>
+                        <p class="text-gray-300 text-sm">Для особых требований</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-end mb-6">
+                            <span class="text-3xl font-bold">Договорная</span>
+                        </div>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Индивидуальный план</span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Любое количество постов</span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Комплексные решения</span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Приоритетное обслуживание</span>
+                            </li>
+                        </ul>
+                        <a href="#contact" class="block text-center px-6 py-3 bg-accent hover:bg-accentDark text-dark font-medium rounded-sm transition-colors duration-300">
+                            Оставить заявку
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 bg-primary">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <span class="inline-block px-3 py-1 bg-accent text-dark text-xs font-semibold rounded-sm mb-3">ОТЗЫВЫ</span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Что говорят наши клиенты</h2>
+                <p class="text-gray-300 max-w-2xl mx-auto">Отзывы от тех, кто уже доверил нам свою безопасность</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-secondary p-8 rounded-sm relative">
+                    <div class="absolute top-0 right-0 transform translate-x-1/4 -translate-y-1/4">
+                        <svg class="w-16 h-16 text-accent opacity-20" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"></path>
+                        </svg>
+                    </div>
+                    <div class="mb-6">
+                        <div class="flex">
+                            <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-8">
+                        "Сотрудничаем с компанией Guard уже более 3 лет. За это время не было ни одного серьезного инцидента. Охранники всегда вежливы и профессиональны. Особенно ценим оперативность реагирования на любые запросы."
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Александр Иванов" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Александр Иванов</h4>
+                            <p class="text-gray-300 text-sm">Генеральный директор, ООО "ТехноПром"</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-secondary p-8 rounded-sm relative">
+                    <div class="absolute top-0 right-0 transform translate-x-1/4 -translate-y-1/4">
+                        <svg class="w-16 h-16 text-accent opacity-20" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"></path>
+                        </svg>
+                    </div>
+                    <div class="mb-6">
+                        <div class="flex">
+                            <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-8">
+                        "После нескольких случаев краж в наших магазинах, мы обратились в Guard. Установили системы видеонаблюдения и тревожные кнопки. За последний год не было ни одного инцидента. Очень довольны сотрудничеством!"
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Елена Петрова" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Елена Петрова</h4>
+                            <p class="text-gray-300 text-sm">Владелица сети магазинов "Модный дом"</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-secondary p-8 rounded-sm relative">
+                    <div class="absolute top-0 right-0 transform translate-x-1/4 -translate-y-1/4">
+                        <svg class="w-16 h-16 text-accent opacity-20" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"></path>
+                        </svg>
+                    </div>
+                    <div class="mb-6">
+                        <div class="flex">
+                            <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-8">
+                        "Компания Guard обеспечивает сопровождение наших грузов уже более 5 лет. За это время не было ни одной потери. Высокий профессионализм сотрудников и современное оборудование — главные преимущества этой компании."
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                            <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Дмитрий Сидоров" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Дмитрий Сидоров</h4>
+                            <p class="text-gray-300 text-sm">Директор по безопасности, ЗАО "ЛогистикПро"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-20 bg-dark">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <span class="inline-block px-3 py-1 bg-accent text-dark text-xs font-semibold rounded-sm mb-3">FAQ</span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Часто задаваемые вопросы</h2>
+                <p class="text-gray-300 max-w-2xl mx-auto">Ответы на популярные вопросы о наших услугах</p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="space-y-4">
+                    <!-- FAQ Item 1 -->
+                    <div class="border border-gray-700 rounded-sm overflow-hidden">
+                        <button class="faq-toggle w-full flex justify-between items-center p-5 bg-secondary hover:bg-opacity-80 transition-colors duration-300">
+                            <span class="font-semibold text-left">Сколько стоит вызов охраны?</span>
+                            <svg class="faq-icon w-5 h-5 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300">
+                            <div class="p-5 bg-primary bg-opacity-50">
+                                <p>Стоимость вызова группы быстрого реагирования зависит от вашего тарифного плана. Для клиентов на тарифе "Стандарт" и выше вызов входит в стоимость обслуживания. Для разовых вызовов стоимость начинается от 3000 рублей.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 2 -->
+                    <div class="border border-gray-700 rounded-sm overflow-hidden">
+                        <button class="faq-toggle w-full flex justify-between items-center p-5 bg-secondary hover:bg-opacity-80 transition-colors duration-300">
+                            <span class="font-semibold text-left">Какие лицензии есть у компании?</span>
+                            <svg class="faq-icon w-5 h-5 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300">
+                            <div class="p-5 bg-primary bg-opacity-50">
+                                <p>Наша компания имеет все необходимые лицензии для осуществления охранной деятельности, включая лицензию ЧОП, лицензии на использование специальных средств и оружия. Все сотрудники имеют удостоверения частного охранника соответствующего разряда.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 3 -->
+                    <div class="border border-gray-700 rounded-sm overflow-hidden">
+                        <button class="faq-toggle w-full flex justify-between items-center p-5 bg-secondary hover:bg-opacity-80 transition-colors duration-300">
+                            <span class="font-semibold text-left">Сколько времени занимает выезд группы реагирования?</span>
+                            <svg class="faq-icon w-5 h-5 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300">
+                            <div class="p-5 bg-primary bg-opacity-50">
+                                <p>Среднее время прибытия группы быстрого реагирования составляет 5-15 минут в зависимости от местоположения объекта и дорожной ситуации. Мы стратегически размещаем экипажи по городу для обеспечения максимально быстрого реагирования.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 4 -->
+                    <div class="border border-gray-700 rounded-sm overflow-hidden">
+                        <button class="faq-toggle w-full flex justify-between items-center p-5 bg-secondary hover:bg-opacity-80 transition-colors duration-300">
+                            <span class="font-semibold text-left">Можно ли установить охранную систему в квартире?</span>
+                            <svg class="faq-icon w-5 h-5 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300">
+                            <div class="p-5 bg-primary bg-opacity-50">
+                                <p>Да, мы устанавливаем системы охраны как в квартирах, так и в частных домах. Наши специалисты проведут бесплатный аудит и предложат оптимальное решение для обеспечения безопасности вашего жилья с учетом всех особенностей.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 5 -->
+                    <div class="border border-gray-700 rounded-sm overflow-hidden">
+                        <button class="faq-toggle w-full flex justify-between items-center p-5 bg-secondary hover:bg-opacity-80 transition-colors duration-300">
+                            <span class="font-semibold text-left">Как проверить квалификацию охранников?</span>
+                            <svg class="faq-icon w-5 h-5 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300">
+                            <div class="p-5 bg-primary bg-opacity-50">
+                                <p>Все наши сотрудники проходят строгий отбор и регулярную аттестацию. По запросу клиента мы предоставляем копии удостоверений и лицензий охранников. Также вы можете запросить информацию о профессиональной подготовке и опыте работы сотрудников.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-primary">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <span class="inline-block px-3 py-1 bg-accent text-dark text-xs font-semibold rounded-sm mb-3">КОНТАКТЫ</span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Свяжитесь с нами</h2>
+                <p class="text-gray-300 max-w-2xl mx-auto">Оставьте заявку, и мы свяжемся с вами в ближайшее время</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                    <form id="contact-form" class="bg-secondary p-8 rounded-sm shadow-lg">
+                        <h3 class="text-2xl font-bold mb-6">Оставить заявку</h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label for="name" class="block text-sm font-medium mb-1">Ваше имя *</label>
+                                <input type="text" id="name" name="name" class="w-full px-4 py-3 bg-primary border border-gray-700 rounded-sm focus:outline-none focus:ring-2 focus:ring-accent" required>
+                            </div>
+                            
+                            <div>
+                                <label for="phone" class="block text-sm font-medium mb-1">Телефон *</label>
+                                <input type="tel" id="phone" name="phone" class="w-full px-4 py-3 bg-primary border border-gray-700 rounded-sm focus:outline-none focus:ring-2 focus:ring-accent" required>
+                            </div>
+                            
+                            <div>
+                                <label for="email" class="block text-sm font-medium mb-1">Email</label>
+                                <input type="email" id="email" name="email" class="w-full px-4 py-3 bg-primary border border-gray-700 rounded-sm focus:outline-none focus:ring-2 focus:ring-accent">
+                            </div>
+                            
+                            <div>
+                                <label for="service" class="block text-sm font-medium mb-1">Интересующая услуга</label>
+                                <select id="service" name="service" class="w-full px-4 py-3 bg-primary border border-gray-700 rounded-sm focus:outline-none focus:ring-2 focus:ring-accent">
+                                    <option value="">Выберите услугу</option>
+                                    <option value="physical">Физическая охрана</option>
+                                    <option value="events">Охрана мероприятий</option>
+                                    <option value="monitoring">Пультовая охрана</option>
+                                    <option value="installation">Монтаж систем безопасности</option>
+                                    <option value="escort">Сопровождение грузов и лиц</option>
+                                    <option value="consultation">Консультации по безопасности</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label for="message" class="block text-sm font-medium mb-1">Сообщение</label>
+                                <textarea id="message" name="message" rows="4" class="w-full px-4 py-3 bg-primary border border-gray-700 rounded-sm focus:outline-none focus:ring-2 focus:ring-accent"></textarea>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <input type="checkbox" id="privacy" name="privacy" class="mt-1 mr-2" required>
+                                <label for="privacy" class="text-sm text-gray-300">Я согласен на обработку персональных данных в соответствии с <a href="#" class="text-accent hover:underline">политикой конфиденциальности</a> *</label>
+                            </div>
+                            
+                            <button type="submit" class="w-full px-6 py-3 bg-accent hover:bg-accentDark text-dark font-medium rounded-sm transition-colors duration-300">
+                                Отправить заявку
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div>
+                    <div class="bg-secondary p-8 rounded-sm shadow-lg mb-8">
+                        <h3 class="text-2xl font-bold mb-6">Контактная информация</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 flex items-center justify-center bg-accent rounded-sm mr-4 flex-shrink-0">
+                                    <svg class="w-6 h-6 text-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-1">Адрес</h4>
+                                    <p class="text-gray-300">г. Москва, ул. Охранная, д. 15, офис 301</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 flex items-center justify-center bg-accent rounded-sm mr-4 flex-shrink-0">
+                                    <svg class="w-6 h-6 text-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-1">Телефон</h4>
+                                    <p class="text-gray-300">+7 (495) 123-45-67</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 flex items-center justify-center bg-accent rounded-sm mr-4 flex-shrink-0">
+                                    <svg class="w-6 h-6 text-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-1">Email</h4>
+                                    <p class="text-gray-300">info@guard-security.ru</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 flex items-center justify-center bg-accent rounded-sm mr-4 flex-shrink-0">
+                                    <svg class="w-6 h-6 text-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-1">Режим работы</h4>
+                                    <p class="text-gray-300">Пн-Пт: 9:00 - 18:00<br>Сб-Вс: Дежурный оператор</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h4 class="font-semibold mb-3">Мы в мессенджерах:</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="w-12 h-12 flex items-center justify-center bg-[#25D366] rounded-sm hover:opacity-90 transition-opacity duration-300">
+                                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path>
+                                    </svg>
+                                </a>
+                                <a href="#" class="w-12 h-12 flex items-center justify-center bg-[#0088cc] rounded-sm hover:opacity-90 transition-opacity duration-300">
+                                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"></path>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-secondary p-4 rounded-sm shadow-lg h-64">
+                        <!-- Map placeholder - in a real project, you would use an iframe with Google Maps or similar -->
+                        <div class="w-full h-full bg-primary rounded-sm flex items-center justify-center">
+                            <p class="text-center text-gray-300">Карта с расположением офиса</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-darker py-12 border-t border-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <a href="#" class="inline-block mb-6">
+                        <span class="text-2xl font-black tracking-wider">
+                            <span class="text-accent">GUARD</span>
+                        </span>
+                    </a>
+                    <p class="text-gray-300 mb-6">Профессиональные услуги в сфере безопасности для бизнеса и частных лиц.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 flex items-center justify-center border border-gray-700 rounded-sm text-gray-300 hover:text-white hover:border-accent transition-colors duration-300">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 flex items-center justify-center border border-gray-700 rounded-sm text-gray-300 hover:text-white hover:border-accent transition-colors duration-300">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 flex items-center justify-center border border-gray-700 rounded-sm text-gray-300 hover:text-white hover:border-accent transition-colors duration-300">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19.995 6.68c-.37.177-.764.3-1.172.357.422-.252.744-.65.898-1.126-.394.234-.83.403-1.294.496-.37-.4-.9-.645-1.486-.645-1.125 0-2.038.912-2.038 2.038 0 .16.017.316.052.465-1.696-.084-3.2-.894-4.2-2.127-.175.302-.276.65-.276 1.02 0 .708.36 1.33.904 1.695-.332-.01-.647-.103-.92-.257v.025c0 .987.703 1.81 1.634 1.997-.17.046-.35.07-.535.07-.13 0-.258-.013-.382-.037.26.81 1.012 1.4 1.9 1.416-.696.546-1.573.87-2.525.87-.165 0-.327-.01-.49-.028.9.577 1.97.915 3.12.915 3.743 0 5.784-3.1 5.784-5.784 0-.088-.002-.176-.006-.264.398-.287.743-.646 1.015-1.055z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Навигация</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#services" class="text-gray-300 hover:text-accent transition-colors duration-300">Услуги</a></li>
+                        <li><a href="#about" class="text-gray-300 hover:text-accent transition-colors duration-300">О компании</a></li>
+                        <li><a href="#portfolio" class="text-gray-300 hover:text-accent transition-colors duration-300">Кейсы</a></li>
+                        <li><a href="#pricing" class="text-gray-300 hover:text-accent transition-colors duration-300">Тарифы</a></li>
+                        <li><a href="#testimonials" class="text-gray-300 hover:text-accent transition-colors duration-300">Отзывы</a></li>
+                        <li><a href="#faq" class="text-gray-300 hover:text-accent transition-colors duration-300">FAQ</a></li>
+                        <li><a href="#contact" class="text-gray-300 hover:text-accent transition-colors duration-300">Контакты</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Услуги</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-accent transition-colors duration-300">Физическая охрана</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-accent transition-colors duration-300">Охрана мероприятий</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-accent transition-colors duration-300">Пультовая охрана</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-accent transition-colors duration-300">Монтаж систем безопасности</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-accent transition-colors duration-300">Сопровождение грузов и лиц</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-accent transition-colors duration-300">Консультации по безопасности</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Реквизиты</h4>
+                    <p class="text-gray-300 mb-4">
+                        ООО "Охранное предприятие "ГАРД"<br>
+                        ИНН: 7712345678<br>
+                        ОГРН: 1234567890123<br>
+                        Лицензия ЧОП: №123456 от 01.01.2020
+                    </p>
+                    <p class="text-gray-300">
+                        <strong>Телефон:</strong> +7 (495) 123-45-67<br>
+                        <strong>Email:</strong> info@guard-security.ru
+                    </p>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">
+                    &copy; 2023 ООО "Охранное предприятие "ГАРД". Все права защищены.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-500 hover:text-accent text-sm transition-colors duration-300">Политика конфиденциальности</a>
+                    <a href="#" class="text-gray-500 hover:text-accent text-sm transition-colors duration-300">Пользовательское соглашение</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    // Close mobile menu if open
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80, // Adjust for header height
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Fixed header on scroll
+        const header = document.getElementById('header');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('py-2');
+                header.classList.add('shadow-lg');
+            } else {
+                header.classList.remove('py-2');
+                header.classList.remove('shadow-lg');
+            }
+        });
+        
+        // FAQ accordion
+        const faqToggles = document.querySelectorAll('.faq-toggle');
+        
+        faqToggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const content = toggle.nextElementSibling;
+                const icon = toggle.querySelector('.faq-icon');
+                
+                // Close all other FAQs
+                document.querySelectorAll('.faq-content').forEach(item => {
+                    if (item !== content) {
+                        item.style.maxHeight = null;
+                        const otherIcon = item.previousElementSibling.querySelector('.faq-icon');
+                        otherIcon.classList.remove('rotate-180');
+                    }
+                });
+                
+                // Toggle current FAQ
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                    icon.classList.remove('rotate-180');
+                } else {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                    icon.classList.add('rotate-180');
+                }
+            });
+        });
+        
+        // Form submission
+        const contactForm = document.getElementById('contact-form');
+        
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // In a real project, you would send the form data to a server
+            // For this example, we'll just show an alert
+            alert('Спасибо за заявку! Мы свяжемся с вами в ближайшее время.');
+            contactForm.reset();
+        });
+    </script>
+</body>
+</html>
