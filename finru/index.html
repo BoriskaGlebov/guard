@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ФИН.РУ - Профессиональные бухгалтерские услуги для ИП и ООО</title>
+    <meta name="description" content="Профессиональные бухгалтерские услуги для ИП и ООО. Ведение бухучета, сдача отчетности, кадровый учет и многое другое.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1E3A8A', // blue-900
+                        accent: '#38BDF8', // sky-400
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .section-padding {
+                @apply py-16 md:py-24;
+            }
+            .container-custom {
+                @apply container mx-auto px-4 md:px-8;
+            }
+            .btn-primary {
+                @apply bg-accent text-white font-medium py-3 px-6 rounded-lg hover:bg-sky-500 transition duration-300 inline-block;
+            }
+            .btn-outline {
+                @apply border-2 border-primary text-primary font-medium py-3 px-6 rounded-lg hover:bg-primary hover:text-white transition duration-300 inline-block;
+            }
+            .card {
+                @apply bg-white rounded-xl shadow-lg p-6 transition duration-300 hover:shadow-xl;
+            }
+            .section-title {
+                @apply text-3xl md:text-4xl font-bold text-primary mb-4;
+            }
+            .section-subtitle {
+                @apply text-lg text-gray-600 mb-12 max-w-3xl mx-auto;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container-custom">
+            <div class="flex justify-between items-center py-4">
+                <a href="#" class="flex items-center">
+                    <div class="text-primary text-2xl font-bold">
+                        <span class="text-accent">ФИН</span><span class="text-primary">.РУ</span>
+                    </div>
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#services" class="text-gray-700 hover:text-accent transition">Услуги</a>
+                    <a href="#pricing" class="text-gray-700 hover:text-accent transition">Тарифы</a>
+                    <a href="#benefits" class="text-gray-700 hover:text-accent transition">Преимущества</a>
+                    <a href="#testimonials" class="text-gray-700 hover:text-accent transition">Отзывы</a>
+                    <a href="#faq" class="text-gray-700 hover:text-accent transition">FAQ</a>
+                    <a href="#contact" class="text-gray-700 hover:text-accent transition">Контакты</a>
+                </nav>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="md:hidden hidden pb-4">
+                <nav class="flex flex-col space-y-4">
+                    <a href="#services" class="text-gray-700 hover:text-accent transition">Услуги</a>
+                    <a href="#pricing" class="text-gray-700 hover:text-accent transition">Тарифы</a>
+                    <a href="#benefits" class="text-gray-700 hover:text-accent transition">Преимущества</a>
+                    <a href="#testimonials" class="text-gray-700 hover:text-accent transition">Отзывы</a>
+                    <a href="#faq" class="text-gray-700 hover:text-accent transition">FAQ</a>
+                    <a href="#contact" class="text-gray-700 hover:text-accent transition">Контакты</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-primary to-blue-800 text-white section-padding">
+        <div class="container-custom">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">Финансовый учет для вашего бизнеса</h1>
+                    <p class="text-xl mb-8 text-sky-100">Профессиональное бухгалтерское сопровождение для ИП и ООО по всей России. Гарантируем результат.</p>
+                    <a href="#contact" class="btn-primary mr-4">Получить бесплатную консультацию</a>
+                    <a href="#pricing" class="mt-4 md:mt-0 text-white border-2 border-white py-3 px-6 rounded-lg hover:bg-white hover:text-primary transition duration-300 inline-block">Тарифы и цены</a>
+                </div>
+                <div class="md:w-1/2">
+                    <img src="/placeholder.svg?height=400&width=500&text=Бухгалтерские+услуги+ФИН.РУ" alt="Бухгалтерские услуги ФИН.РУ" class="rounded-lg shadow-2xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="bg-white section-padding">
+        <div class="container-custom">
+            <h2 class="section-title text-center">Наши услуги</h2>
+            <p class="section-subtitle text-center">Полный спектр бухгалтерских услуг для вашего бизнеса</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="card">
+                    <div class="text-accent text-4xl mb-4">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-primary">Ведение бухучета</h3>
+                    <p class="text-gray-600 mb-4">Комплексное ведение бухгалтерского и налогового учета для ИП и ООО. Обработка первичной документации, учет доходов и расходов, формирование отчетов.</p>
+                    <a href="#contact" class="text-accent hover:underline font-medium">Подробнее →</a>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="card">
+                    <div class="text-accent text-4xl mb-4">
+                        <i class="fas fa-file-invoice"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-primary">Сдача отчетности</h3>
+                    <p class="text-gray-600 mb-4">Своевременная подготовка и сдача налоговой и бухгалтерской отчетности в ФНС, ПФР, ФСС и Росстат. Контроль сроков и правильности заполнения.</p>
+                    <a href="#contact" class="text-accent hover:underline font-medium">Подробнее →</a>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="card">
+                    <div class="text-accent text-4xl mb-4">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-primary">Кадровый учет</h3>
+                    <p class="text-gray-600 mb-4">Полное ведение кадрового делопроизводства. Оформление приема, перевода и увольнения сотрудников. Ведение личных дел, расчет заработной платы и отпускных.</p>
+                    <a href="#contact" class="text-accent hover:underline font-medium">Подробнее →</a>
+                </div>
+                
+                <!-- Service 4 -->
+                <div class="card">
+                    <div class="text-accent text-4xl mb-4">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-primary">Регистрация ИП/ООО</h3>
+                    <p class="text-gray-600 mb-4">Профессиональная помощь в регистрации бизнеса. Подготовка всех необходимых документов, выбор оптимальной системы налогообложения, сопровождение процесса.</p>
+                    <a href="#contact" class="text-accent hover:underline font-medium">Подробнее →</a>
+                </div>
+                
+                <!-- Service 5 -->
+                <div class="card">
+                    <div class="text-accent text-4xl mb-4">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-primary">Восстановление учета</h3>
+                    <p class="text-gray-600 mb-4">Качественное восстановление бухгалтерского и налогового учета за прошлые периоды. Исправление ошибок в отчетности, минимизация рисков штрафов.</p>
+                    <a href="#contact" class="text-accent hover:underline font-medium">Подробнее →</a>
+                </div>
+                
+                <!-- Service 6 -->
+                <div class="card">
+                    <div class="text-accent text-4xl mb-4">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-primary">Поддержка при проверках</h3>
+                    <p class="text-gray-600 mb-4">Профессиональное сопровождение при налоговых проверках. Подготовка документов, представление интересов в контролирующих органах, защита ваших прав.</p>
+                    <a href="#contact" class="text-accent hover:underline font-medium">Подробнее →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="bg-gray-50 section-padding">
+        <div class="container-custom">
+            <h2 class="section-title text-center">Тарифы и цены</h2>
+            <p class="section-subtitle text-center">Выберите оптимальный тариф для вашего бизнеса</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Tariff 1 -->
+                <div class="card border-t-4 border-gray-400 flex flex-col h-full">
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-bold mb-2 text-primary">Базовый</h3>
+                        <p class="text-gray-600 mb-4">Для ИП без сотрудников</p>
+                        <div class="text-3xl font-bold text-primary mb-4">от 3 500 ₽<span class="text-sm text-gray-500 font-normal">/мес</span></div>
+                    </div>
+                    
+                    <ul class="mb-8 flex-grow">
+                        <li class="flex items-start mb-3">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>Ведение бухгалтерского учета</span>
+                        </li>
+                        <li class="flex items-start mb-3">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>Подготовка и сдача отчетности</span>
+                        </li>
+                        <li class="flex items-start mb-3">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>Расчет налогов</span>
+                        </li>
+                        <li class="flex items-start mb-3">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>До 15 операций в месяц</span>
+                        </li>
+                        <li class="flex items-start mb-3 text-gray-400">
+                            <i class="fas fa-times mt-1 mr-2"></i>
+                            <span>Кадровый учет</span>
+                        </li>
+                        <li class="flex items-start mb-3 text-gray-400">
+                            <i class="fas fa-times mt-1 mr-2"></i>
+                            <span>Оптимизация налогообложения</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="#contact" class="btn-outline text-center">Оставить заявку</a>
+                </div>
+                
+                <!-- Tariff 2 -->
+                <div class="card border-t-4 border-accent flex flex-col h-full transform scale-105 shadow-xl">
+                    <div class="absolute -top-4 right-4">
+                        <span class="bg-accent text-white text-sm font-bold py-1 px-3 rounded-full">Популярный</span>
+                    </div>
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-bold mb-2 text-primary">Стандарт</h3>
+                        <p class="text-gray-600 mb-4">Для ООО с сотрудниками</p>
+                        <div class="text-3xl font-bold text-primary mb-4">от 7 500 ₽<span class="text-sm text-gray-500 font-normal">/мес</span></div>
+                    </div>
+                    
+                    <ul class="mb-8 flex-grow">
+                        <li class="flex items-start mb-3">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>Ведение бухгалтерского учета</span>
+                        </li>
+                        <li class="flex items-start mb-3">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>Подготовка и сдача отчетности</span>
+                        </li>
+                        <li class="flex items-start mb-3">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>Расчет налогов</span>
+                        </li>
+                        <li class="flex items-start mb-3">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>До 50 операций в месяц</span>
+                        </li>
+                        <li class="flex items-start mb-3">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>Кадровый учет (до 5 сотрудников)</span>
+                        </li>
+                        <li class="flex items-start mb-3">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>Оптимизация налогообложения</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="#contact" class="btn-primary text-center">Оставить заявку</a>
+                </div>
+                
+                <!-- Tariff 3 -->
+                <div class="card border-t-4 border-primary flex flex-col h-full">
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-bold mb-2 text-primary">Премиум</h3>
+                        <p class="text-gray-600 mb-4">Для компаний с НДС</p>
+                        <div class="text-3xl font-bold text-primary mb-4">от 15 000 ₽<span class="text-sm text-gray-500 font-normal">/мес</span></div>
+                    </div>
+                    
+                    <ul class="mb-8 flex-grow">
+                        <li class="flex items-start mb-3">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>Ведение бухгалтерского учета</span>
+                        </li>
+                        <li class="flex items-start mb-3">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>Подготовка и сдача отчетности</span>
+                        </li>
+                        <li class="flex items-start mb-3">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>Расчет налогов, включая НДС</span>
+                        </li>
+                        <li class="flex items-start mb-3">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>Неограниченное количество операций</span>
+                        </li>
+                        <li class="flex items-start mb-3">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>Кадровый учет (до 15 сотрудников)</span>
+                        </li>
+                        <li class="flex items-start mb-3">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>Расширенная оптимизация налогообложения</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="#contact" class="btn-outline text-center">Оставить заявку</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="benefits" class="bg-white section-padding">
+        <div class="container-custom">
+            <h2 class="section-title text-center">Почему выбирают нас</h2>
+            <p class="section-subtitle text-center">Наши преимущества, которые ценят клиенты</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Benefit 1 -->
+                <div class="text-center">
+                    <div class="bg-blue-50 text-accent rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-history text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-primary">Опыт 12+ лет</h3>
+                    <p class="text-gray-600">Более 12 лет успешной работы с компаниями разного масштаба и сферы деятельности по всей России.</p>
+                </div>
+                
+                <!-- Benefit 2 -->
+                <div class="text-center">
+                    <div class="bg-blue-50 text-accent rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-file-contract text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-primary">Полная ответственность</h3>
+                    <p class="text-gray-600">Несем материальную ответственность за свою работу согласно договору. Компенсируем штрафы по нашей вине.</p>
+                </div>
+                
+                <!-- Benefit 3 -->
+                <div class="text-center">
+                    <div class="bg-blue-50 text-accent rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-tag text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-primary">Прозрачные цены</h3>
+                    <p class="text-gray-600">Фиксированные тарифы без скрытых платежей и дополнительных расходов. Вы всегда знаете, за что платите.</p>
+                </div>
+                
+                <!-- Benefit 4 -->
+                <div class="text-center">
+                    <div class="bg-blue-50 text-accent rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-laptop text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-primary">Онлайн сопровождение</h3>
+                    <p class="text-gray-600">Удаленное обслуживание и поддержка 24/7. Доступ к личному кабинету с отчетами и документами в любое время.</p>
+                </div>
+            </div>
+            
+            <!-- Comparison Table -->
+            <div class="mt-20">
+                <h3 class="text-2xl font-bold text-primary text-center mb-8">Сравнение с другими вариантами</h3>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse">
+                        <thead>
+                            <tr class="bg-primary text-white">
+                                <th class="p-4 text-left">Критерий</th>
+                                <th class="p-4 text-center">ФИН.РУ</th>
+                                <th class="p-4 text-center">Фрилансер</th>
+                                <th class="p-4 text-center">Штатный бухгалтер</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-gray-200">
+                                <td class="p-4 font-medium">Стоимость</td>
+                                <td class="p-4 text-center bg-blue-50">От 3 500 ₽/мес</td>
+                                <td class="p-4 text-center">От 6 000 ₽/мес</td>
+                                <td class="p-4 text-center">От 45 000 ₽/мес</td>
+                            </tr>
+                            <tr class="border-b border-gray-200">
+                                <td class="p-4 font-medium">Ответственность</td>
+                                <td class="p-4 text-center bg-blue-50">Полная, по договору</td>
+                                <td class="p-4 text-center">Ограниченная</td>
+                                <td class="p-4 text-center">Ограниченная</td>
+                            </tr>
+                            <tr class="border-b border-gray-200">
+                                <td class="p-4 font-medium">Доступность</td>
+                                <td class="p-4 text-center bg-blue-50">24/7</td>
+                                <td class="p-4 text-center">Ограниченная</td>
+                                <td class="p-4 text-center">В рабочее время</td>
+                            </tr>
+                            <tr class="border-b border-gray-200">
+                                <td class="p-4 font-medium">Опыт и квалификация</td>
+                                <td class="p-4 text-center bg-blue-50">Команда экспертов</td>
+                                <td class="p-4 text-center">Один специалист</td>
+                                <td class="p-4 text-center">Один специалист</td>
+                            </tr>
+                            <tr class="border-b border-gray-200">
+                                <td class="p-4 font-medium">Замена при болезни/отпуске</td>
+                                <td class="p-4 text-center bg-blue-50">Да</td>
+                                <td class="p-4 text-center">Нет</td>
+                                <td class="p-4 text-center">Нет</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="bg-gray-50 section-padding">
+        <div class="container-custom">
+            <h2 class="section-title text-center">Отзывы наших клиентов</h2>
+            <p class="section-subtitle text-center">Что говорят о нас те, кто уже воспользовался нашими услугами</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="card">
+                    <div class="flex items-center mb-4">
+                        <img src="/placeholder.svg?height=60&width=60&text=АС" alt="Фото клиента" class="w-16 h-16 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-lg">Анна Сергеева</h4>
+                            <p class="text-gray-600">ИП, интернет-магазин "ЭкоТовары"</p>
+                        </div>
+                    </div>
+                    <div class="text-yellow-400 mb-3">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-700 italic">"Сотрудничаю с ФИН.РУ уже 3 года. Очень довольна качеством услуг. Всегда на связи, отвечают на все вопросы, помогли оптимизировать налоги и сэкономить более 120 000 рублей за год. Рекомендую!"</p>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="card">
+                    <div class="flex items-center mb-4">
+                        <img src="/placeholder.svg?height=60&width=60&text=СИ" alt="Фото клиента" class="w-16 h-16 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-lg">Сергей Иванов</h4>
+                            <p class="text-gray-600">ООО "ТехноСтрой", директор</p>
+                        </div>
+                    </div>
+                    <div class="text-yellow-400 mb-3">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-700 italic">"Перешли на обслуживание в ФИН.РУ после неудачного опыта с штатным бухгалтером. Разница колоссальная! Все четко, профессионально, без ошибок. Экономия времени и денег. Особенно ценю оперативность и компетентность."</p>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="card">
+                    <div class="flex items-center mb-4">
+                        <img src="/placeholder.svg?height=60&width=60&text=ЕП" alt="Фото клиента" class="w-16 h-16 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-lg">Елена Петрова</h4>
+                            <p class="text-gray-600">ООО "МедСервис", финансовый директор</p>
+                        </div>
+                    </div>
+                    <div class="text-yellow-400 mb-3">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="text-gray-700 italic">"Благодарны команде ФИН.РУ за помощь в восстановлении учета и сопровождении налоговой проверки. Профессионалы своего дела, всегда готовы помочь и объяснить сложные моменты простым языком. Работаем вместе уже 5 лет."</p>
+                </div>
+            </div>
+            
+            <!-- Client Logos -->
+            <div class="mt-20">
+                <h3 class="text-2xl font-bold text-primary text-center mb-8">Нам доверяют</h3>
+                <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16">
+                    <img src="/placeholder.svg?height=60&width=120&text=ТехноСтрой" alt="Логотип ТехноСтрой" class="h-12 grayscale hover:grayscale-0 transition duration-300">
+                    <img src="/placeholder.svg?height=60&width=120&text=МедСервис" alt="Логотип МедСервис" class="h-12 grayscale hover:grayscale-0 transition duration-300">
+                    <img src="/placeholder.svg?height=60&width=120&text=ЭкоТовары" alt="Логотип ЭкоТовары" class="h-12 grayscale hover:grayscale-0 transition duration-300">
+                    <img src="/placeholder.svg?height=60&width=120&text=СтройМаркет" alt="Логотип СтройМаркет" class="h-12 grayscale hover:grayscale-0 transition duration-300">
+                    <img src="/placeholder.svg?height=60&width=120&text=АвтоПлюс" alt="Логотип АвтоПлюс" class="h-12 grayscale hover:grayscale-0 transition duration-300">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="bg-white section-padding">
+        <div class="container-custom">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2">
+                    <img src="/placeholder.svg?height=400&width=600&text=Команда+ФИН.РУ" alt="Команда ФИН.РУ" class="rounded-lg shadow-lg">
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="section-title">О компании</h2>
+                    <p class="text-gray-700 mb-6">ФИН.РУ — это команда профессиональных бухгалтеров с опытом работы более 12 лет. Мы специализируемся на оказании бухгалтерских услуг для малого и среднего бизнеса в различных отраслях.</p>
+                    <p class="text-gray-700 mb-6">Наша миссия — освободить предпринимателей от рутинной бухгалтерии и позволить им сосредоточиться на развитии своего бизнеса. Мы стремимся сделать бухгалтерский учет понятным и прозрачным для наших клиентов.</p>
+                    <p class="text-gray-700 mb-8">В нашей команде работают 15 сертифицированных специалистов, которые постоянно повышают свою квалификацию и следят за изменениями в законодательстве. Мы используем современные технологии и программное обеспечение для обеспечения высокого качества услуг.</p>
+                    
+                    <div class="flex flex-wrap gap-4">
+                        <img src="/placeholder.svg?height=80&width=120&text=Сертификат+ИПБ" alt="Сертификат ИПБ" class="h-20 rounded shadow hover:shadow-md transition">
+                        <img src="/placeholder.svg?height=80&width=120&text=Сертификат+1С" alt="Сертификат 1С" class="h-20 rounded shadow hover:shadow-md transition">
+                        <img src="/placeholder.svg?height=80&width=120&text=Лицензия" alt="Лицензия" class="h-20 rounded shadow hover:shadow-md transition">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="bg-gray-50 section-padding">
+        <div class="container-custom">
+            <h2 class="section-title text-center">Часто задаваемые вопросы</h2>
+            <p class="section-subtitle text-center">Ответы на популярные вопросы о наших услугах</p>
+            
+            <div class="max-w-3xl mx-auto">
+                <!-- FAQ Item 1 -->
+                <div class="faq-item mb-6 border-b border-gray-200 pb-6">
+                    <button class="faq-question flex justify-between items-center w-full text-left font-bold text-lg text-primary">
+                        <span>Как происходит передача документов?</span>
+                        <i class="fas fa-chevron-down text-accent transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer mt-4 text-gray-700 hidden">
+                        <p>Мы работаем как с бумажными, так и с электронными документами. Вы можете передавать документы курьером, по электронной почте или через наш защищенный личный кабинет. Также мы можем настроить электронный документооборот с вашими контрагентами через системы ЭДО (Диадок, СБИС и др.).</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 2 -->
+                <div class="faq-item mb-6 border-b border-gray-200 pb-6">
+                    <button class="faq-question flex justify-between items-center w-full text-left font-bold text-lg text-primary">
+                        <span>Что входит в стоимость обслуживания?</span>
+                        <i class="fas fa-chevron-down text-accent transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer mt-4 text-gray-700 hidden">
+                        <p>В стоимость обслуживания входит ведение бухгалтерского и налогового учета, подготовка и сдача отчетности, расчет налогов и консультации по текущим вопросам. Конкретный перечень услуг зависит от выбранного тарифа и указывается в договоре. Дополнительно мы предоставляем ежемесячные отчеты о состоянии бухгалтерии и рекомендации по оптимизации.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 3 -->
+                <div class="faq-item mb-6 border-b border-gray-200 pb-6">
+                    <button class="faq-question flex justify-between items-center w-full text-left font-bold text-lg text-primary">
+                        <span>Как часто нужно встречаться с бухгалтером?</span>
+                        <i class="fas fa-chevron-down text-accent transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer mt-4 text-gray-700 hidden">
+                        <p>Мы работаем удаленно, поэтому личные встречи не обязательны. Общение происходит по телефону, электронной почте, в мессенджерах или через личный кабинет. При необходимости мы можем организовать видеоконференцию или личную встречу в нашем офисе. Многие клиенты предпочитают ежемесячные онлайн-встречи для обсуждения текущих вопросов.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 4 -->
+                <div class="faq-item mb-6 border-b border-gray-200 pb-6">
+                    <button class="faq-question flex justify-between items-center w-full text-left font-bold text-lg text-primary">
+                        <span>Что делать, если налоговая назначила проверку?</span>
+                        <i class="fas fa-chevron-down text-accent transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer mt-4 text-gray-700 hidden">
+                        <p>В случае назначения налоговой проверки мы поможем подготовить все необходимые документы, составим ответы на требования налоговой инспекции и будем сопровождать вас на всех этапах проверки. При необходимости привлечем юристов для защиты ваших интересов. Наши клиенты успешно проходят налоговые проверки благодаря правильно организованному учету и своевременной подготовке.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 5 -->
+                <div class="faq-item mb-6 border-b border-gray-200 pb-6">
+                    <button class="faq-question flex justify-between items-center w-full text-left font-bold text-lg text-primary">
+                        <span>Можно ли сменить систему налогообложения?</span>
+                        <i class="fas fa-chevron-down text-accent transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer mt-4 text-gray-700 hidden">
+                        <p>Да, мы поможем вам выбрать оптимальную систему налогообложения и подготовим все необходимые документы для перехода. Смена системы налогообложения возможна с начала нового календарного года (в некоторых случаях — с начала квартала). Мы проведем анализ вашего бизнеса и рассчитаем налоговую нагрузку при разных системах налогообложения, чтобы выбрать наиболее выгодный вариант.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-white section-padding">
+        <div class="container-custom">
+            <h2 class="section-title text-center">Свяжитесь с нами</h2>
+            <p class="section-subtitle text-center">Оставьте заявку, и мы свяжемся с вами в ближайшее время</p>
+            
+            <div class="flex flex-col md:flex-row gap-12">
+                <!-- Contact Form -->
+                <div class="md:w-1/2">
+                    <form id="contact-form" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-gray-700 font-medium mb-2">Имя</label>
+                            <input type="text" id="name" name="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" required>
+                        </div>
+                        
+                        <div>
+                            <label for="phone" class="block text-gray-700 font-medium mb-2">Телефон</label>
+                            <input type="tel" id="phone" name="phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" required>
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+                            <input type="email" id="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" required>
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-gray-700 font-medium mb-2">Сообщение</label>
+                            <textarea id="message" name="message" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"></textarea>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <input type="checkbox" id="privacy" name="privacy" class="mr-2" required>
+                            <label for="privacy" class="text-gray-700 text-sm">Я согласен на обработку персональных данных</label>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary w-full">Отправить заявку</button>
+                    </form>
+                </div>
+                
+                <!-- Contact Info -->
+                <div class="md:w-1/2">
+                    <div class="bg-gray-50 p-8 rounded-lg h-full">
+                        <h3 class="text-2xl font-bold text-primary mb-6">Контактная информация</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="text-accent text-xl mr-4">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">Адрес</h4>
+                                    <p class="text-gray-700">г. Москва, ул. Ленинградская, д. 15, офис 203</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="text-accent text-xl mr-4">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">Телефон</h4>
+                                    <p class="text-gray-700">+7 (495) 123-45-67</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="text-accent text-xl mr-4">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">Email</h4>
+                                    <p class="text-gray-700">info@fin.ru</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="text-accent text-xl mr-4">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">Режим работы</h4>
+                                    <p class="text-gray-700">Пн-Пт: 9:00 - 18:00<br>Сб-Вс: выходные</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h4 class="font-bold mb-4">Мы в социальных сетях</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="text-primary hover:text-accent text-2xl transition">
+                                    <i class="fab fa-vk"></i>
+                                </a>
+                                <a href="#" class="text-primary hover:text-accent text-2xl transition">
+                                    <i class="fab fa-telegram"></i>
+                                </a>
+                                <a href="#" class="text-primary hover:text-accent text-2xl transition">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Map -->
+            <div class="mt-16">
+                <div class="bg-gray-200 rounded-lg h-80 flex items-center justify-center">
+                    <p class="text-gray-500 text-lg">Карта с расположением офиса ФИН.РУ</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white py-12">
+        <div class="container-custom">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Column 1 -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4"><span class="text-accent">ФИН</span>.РУ</h3>
+                    <p class="text-blue-100 mb-4">Профессиональные бухгалтерские услуги для вашего бизнеса с 2011 года</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white hover:text-accent transition">
+                            <i class="fab fa-vk"></i>
+                        </a>
+                        <a href="#" class="text-white hover:text-accent transition">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="#" class="text-white hover:text-accent transition">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Column 2 -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Услуги</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#services" class="text-blue-100 hover:text-accent transition">Ведение бухучета</a></li>
+                        <li><a href="#services" class="text-blue-100 hover:text-accent transition">Сдача отчетности</a></li>
+                        <li><a href="#services" class="text-blue-100 hover:text-accent transition">Кадровый учет</a></li>
+                        <li><a href="#services" class="text-blue-100 hover:text-accent transition">Регистрация ИП/ООО</a></li>
+                        <li><a href="#services" class="text-blue-100 hover:text-accent transition">Восстановление учета</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Column 3 -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Информация</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-blue-100 hover:text-accent transition">О компании</a></li>
+                        <li><a href="#pricing" class="text-blue-100 hover:text-accent transition">Тарифы</a></li>
+                        <li><a href="#faq" class="text-blue-100 hover:text-accent transition">FAQ</a></li>
+                        <li><a href="#" class="text-blue-100 hover:text-accent transition">Блог</a></li>
+                        <li><a href="#" class="text-blue-100 hover:text-accent transition">Политика конфиденциальности</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Column 4 -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Контакты</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-2"></i>
+                            <span>г. Москва, ул. Ленинградская, д. 15, офис 203</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone-alt mt-1 mr-2"></i>
+                            <span>+7 (495) 123-45-67</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope mt-1 mr-2"></i>
+                            <span>info@fin.ru</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-clock mt-1 mr-2"></i>
+                            <span>Пн-Пт: 9:00 - 18:00</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-blue-800 mt-8 pt-8 text-center text-blue-200">
+                <p>&copy; 2011-2025 ФИН.РУ. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg p-8 max-w-md w-full">
+            <div class="text-center">
+                <div class="text-green-500 text-5xl mb-4">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-primary mb-2">Спасибо за заявку!</h3>
+                <p class="text-gray-700 mb-6">Мы свяжемся с вами в ближайшее время.</p>
+                <button id="close-modal" class="btn-primary">Закрыть</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            const icon = mobileMenuButton.querySelector('i');
+            if (mobileMenu.classList.contains('hidden')) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            } else {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            }
+        });
+        
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                // Close mobile menu if open
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                    const icon = mobileMenuButton.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // FAQ Accordion
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const icon = question.querySelector('i');
+                
+                // Toggle current answer
+                answer.classList.toggle('hidden');
+                icon.classList.toggle('rotate-180');
+                
+                // Close other answers
+                faqQuestions.forEach(otherQuestion => {
+                    if (otherQuestion !== question) {
+                        const otherAnswer = otherQuestion.nextElementSibling;
+                        const otherIcon = otherQuestion.querySelector('i');
+                        
+                        if (!otherAnswer.classList.contains('hidden')) {
+                            otherAnswer.classList.add('hidden');
+                            otherIcon.classList.remove('rotate-180');
+                        }
+                    }
+                });
+            });
+        });
+        
+        // Form Validation and Submission
+        const contactForm = document.getElementById('contact-form');
+        const successModal = document.getElementById('success-modal');
+        const closeModal = document.getElementById('close-modal');
+        
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Basic validation
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            
+            if (!name || !phone || !email) {
+                alert('Пожалуйста, заполните все обязательные поля');
+                return;
+            }
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Пожалуйста, введите корректный email');
+                return;
+            }
+            
+            // Phone validation
+            const phoneRegex = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/;
+            if (!phoneRegex.test(phone)) {
+                alert('Пожалуйста, введите корректный номер телефона');
+                return;
+            }
+            
+            // Show success modal
+            successModal.classList.remove('hidden');
+            
+            // Reset form
+            contactForm.reset();
+        });
+        
+        closeModal.addEventListener('click', () => {
+            successModal.classList.add('hidden');
+        });
+        
+        // Close modal when clicking outside
+        successModal.addEventListener('click', (e) => {
+            if (e.target === successModal) {
+                successModal.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
