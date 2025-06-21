@@ -5,15 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Larina Legal - Юридическая поддержка цифровых проектов</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: '#225479',
-                        secondary: '#323232',
-                        light: '#f8fafc'
+                        'navy': '#0F172A',
+                        'gold': '#D4AF37',
+                        'light-gold': '#F7E98E',
+                        'dark-blue': '#1E293B',
+                        'accent-blue': '#3B82F6'
                     },
                     fontFamily: {
                         'inter': ['Inter', 'sans-serif']
@@ -23,64 +25,76 @@
         }
     </script>
 </head>
-<body class="font-inter text-secondary bg-light">
+<body class="font-inter text-gray-900 bg-white">
     <!-- Header -->
-    <header class="bg-white shadow-sm fixed w-full top-0 z-50">
+    <header class="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-lg z-50">
         <div class="container mx-auto px-4 py-4">
             <div class="flex justify-between items-center">
-                <div class="flex items-center space-x-2">
-                    <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                        <span class="text-white font-bold text-lg">LL</span>
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-r from-navy to-accent-blue rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-lg">L</span>
                     </div>
-                    <span class="text-xl font-semibold text-primary">Larina Legal</span>
+                    <div>
+                        <h1 class="text-xl font-bold text-navy">Larina Legal</h1>
+                        <p class="text-xs text-gray-600">Юридическая поддержка IT</p>
+                    </div>
                 </div>
                 
                 <nav class="hidden md:flex space-x-8">
-                    <a href="#services" class="text-secondary hover:text-primary transition-colors">Услуги</a>
-                    <a href="#about" class="text-secondary hover:text-primary transition-colors">О нас</a>
-                    <a href="#advantages" class="text-secondary hover:text-primary transition-colors">Преимущества</a>
-                    <a href="#portfolio" class="text-secondary hover:text-primary transition-colors">Клиенты</a>
-                    <a href="#contact" class="text-secondary hover:text-primary transition-colors">Контакты</a>
+                    <a href="#services" class="text-gray-700 hover:text-navy transition-colors">Услуги</a>
+                    <a href="#about" class="text-gray-700 hover:text-navy transition-colors">О нас</a>
+                    <a href="#portfolio" class="text-gray-700 hover:text-navy transition-colors">Клиенты</a>
+                    <a href="#contact" class="text-gray-700 hover:text-navy transition-colors">Контакты</a>
                 </nav>
                 
                 <div class="flex items-center space-x-4">
-                    <a href="tel:+79001234567" class="text-primary font-semibold">+7 (900) 123-45-67</a>
-                    <button id="mobile-menu-btn" class="md:hidden">
+                    <a href="tel:+79001234567" class="text-navy font-semibold hover:text-accent-blue transition-colors">
+                        +7 (900) 123-45-67
+                    </a>
+                    <button class="md:hidden" onclick="toggleMobileMenu()">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
                     </button>
                 </div>
             </div>
-            
-            <!-- Mobile Menu -->
-            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
-                <nav class="flex flex-col space-y-4">
-                    <a href="#services" class="text-secondary hover:text-primary transition-colors">Услуги</a>
-                    <a href="#about" class="text-secondary hover:text-primary transition-colors">О нас</a>
-                    <a href="#advantages" class="text-secondary hover:text-primary transition-colors">Преимущества</a>
-                    <a href="#portfolio" class="text-secondary hover:text-primary transition-colors">Клиенты</a>
-                    <a href="#contact" class="text-secondary hover:text-primary transition-colors">Контакты</a>
-                </nav>
-            </div>
         </div>
     </header>
 
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="fixed top-0 left-0 w-full h-full bg-white z-40 transform -translate-x-full transition-transform duration-300 md:hidden">
+        <div class="p-6 pt-20">
+            <nav class="space-y-6">
+                <a href="#services" class="block text-xl text-gray-700 hover:text-navy" onclick="toggleMobileMenu()">Услуги</a>
+                <a href="#about" class="block text-xl text-gray-700 hover:text-navy" onclick="toggleMobileMenu()">О нас</a>
+                <a href="#portfolio" class="block text-xl text-gray-700 hover:text-navy" onclick="toggleMobileMenu()">Клиенты</a>
+                <a href="#contact" class="block text-xl text-gray-700 hover:text-navy" onclick="toggleMobileMenu()">Контакты</a>
+            </nav>
+        </div>
+    </div>
+
     <!-- Hero Section -->
-    <section class="bg-gradient-to-br from-primary to-blue-800 text-white pt-24 pb-16">
-        <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto text-center">
-                <h1 class="text-4xl md:text-6xl font-bold mb-6">
-                    Юридическая поддержка <span class="text-blue-200">цифровых проектов</span>
+    <section class="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-navy via-dark-blue to-accent-blue overflow-hidden">
+        <div class="absolute inset-0 bg-black/20"></div>
+        <div class="absolute right-0 top-0 w-1/2 h-full opacity-30">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=1200&fit=crop&crop=face" 
+                 alt="Основатель Larina Legal" 
+                 class="w-full h-full object-cover object-center">
+        </div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-2xl">
+                <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+                    Защитим ваш <span class="text-gold">цифровой</span> бизнес
                 </h1>
-                <p class="text-xl md:text-2xl mb-8 text-blue-100">
-                    Защитим ваши права на интеллектуальную собственность и обеспечим правовую безопасность IT-бизнеса
+                <p class="text-xl text-gray-200 mb-8 leading-relaxed">
+                    Профессиональная юридическая поддержка IT-проектов. Защита персональных данных, регистрация товарных знаков, IP-аудит.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="#contact" class="bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#contact" class="bg-gold hover:bg-yellow-500 text-navy px-8 py-4 rounded-lg font-semibold text-lg transition-all transform hover:scale-105 text-center">
                         Получить консультацию
                     </a>
-                    <a href="#services" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-primary transition-colors">
+                    <a href="#services" class="border-2 border-white text-white hover:bg-white hover:text-navy px-8 py-4 rounded-lg font-semibold text-lg transition-all text-center">
                         Наши услуги
                     </a>
                 </div>
@@ -89,97 +103,127 @@
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="py-16 bg-white">
+    <section id="services" class="py-20 bg-gray-50">
         <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">Наши услуги</h2>
-                <p class="text-lg text-secondary max-w-2xl mx-auto">
-                    Комплексная юридическая поддержка для IT-компаний и цифровых проектов
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-navy mb-4">Наши услуги</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Комплексная юридическая поддержка для цифровых проектов и IT-бизнеса
                 </p>
             </div>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-light p-6 rounded-lg border hover:shadow-lg transition-shadow">
-                    <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.031 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3">Защита персональных данных по 152-ФЗ</h3>
-                    <p class="text-secondary mb-4">Полное сопровождение по соблюдению требований законодательства о персональных данных</p>
-                    <div class="flex justify-between items-center">
-                        <span class="text-2xl font-bold text-primary">от 50 000 ₽</span>
-                        <button class="bg-primary text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">Заказать</button>
-                    </div>
-                </div>
-                
-                <div class="bg-light p-6 rounded-lg border hover:shadow-lg transition-shadow">
-                    <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3">Регистрация товарного знака</h3>
-                    <p class="text-secondary mb-4">Защита вашего бренда через регистрацию товарного знака в Роспатенте</p>
-                    <div class="flex justify-between items-center">
-                        <span class="text-2xl font-bold text-primary">от 30 000 ₽</span>
-                        <button class="bg-primary text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">Заказать</button>
+                <!-- Service Card 1 -->
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2" onclick="openServiceModal('service1')">
+                    <div class="p-8">
+                        <div class="w-16 h-16 bg-gradient-to-r from-navy to-accent-blue rounded-lg flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-navy mb-3">Защита персональных данных</h3>
+                        <p class="text-gray-600 mb-4">Соответствие требованиям 152-ФЗ</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-gold">от 50 000 ₽</span>
+                            <button class="bg-navy text-white px-4 py-2 rounded-lg hover:bg-dark-blue transition-colors">
+                                Заказать
+                            </button>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="bg-light p-6 rounded-lg border hover:shadow-lg transition-shadow">
-                    <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3">Регистрация ПО и баз данных</h3>
-                    <p class="text-secondary mb-4">Оформление авторских прав на программное обеспечение и базы данных</p>
-                    <div class="flex justify-between items-center">
-                        <span class="text-2xl font-bold text-primary">от 25 000 ₽</span>
-                        <button class="bg-primary text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">Заказать</button>
-                    </div>
-                </div>
-                
-                <div class="bg-light p-6 rounded-lg border hover:shadow-lg transition-shadow">
-                    <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3">Договоры и переход прав</h3>
-                    <p class="text-secondary mb-4">Подготовка договоров и регистрация перехода прав в Роспатенте</p>
-                    <div class="flex justify-between items-center">
-                        <span class="text-2xl font-bold text-primary">от 20 000 ₽</span>
-                        <button class="bg-primary text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">Заказать</button>
+
+                <!-- Service Card 2 -->
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2" onclick="openServiceModal('service2')">
+                    <div class="p-8">
+                        <div class="w-16 h-16 bg-gradient-to-r from-navy to-accent-blue rounded-lg flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-navy mb-3">Регистрация товарного знака</h3>
+                        <p class="text-gray-600 mb-4">Защита бренда и интеллектуальной собственности</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-gold">от 35 000 ₽</span>
+                            <button class="bg-navy text-white px-4 py-2 rounded-lg hover:bg-dark-blue transition-colors">
+                                Заказать
+                            </button>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="bg-light p-6 rounded-lg border hover:shadow-lg transition-shadow">
-                    <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3">Консультации</h3>
-                    <p class="text-secondary mb-4">Первичные, устные и письменные консультации по IT-праву</p>
-                    <div class="flex justify-between items-center">
-                        <span class="text-2xl font-bold text-primary">от 5 000 ₽</span>
-                        <button class="bg-primary text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">Заказать</button>
+
+                <!-- Service Card 3 -->
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2" onclick="openServiceModal('service3')">
+                    <div class="p-8">
+                        <div class="w-16 h-16 bg-gradient-to-r from-navy to-accent-blue rounded-lg flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-navy mb-3">Регистрация ПО и баз данных</h3>
+                        <p class="text-gray-600 mb-4">Оформление прав в Роспатенте</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-gold">от 25 000 ₽</span>
+                            <button class="bg-navy text-white px-4 py-2 rounded-lg hover:bg-dark-blue transition-colors">
+                                Заказать
+                            </button>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="bg-light p-6 rounded-lg border hover:shadow-lg transition-shadow">
-                    <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                        </svg>
+
+                <!-- Service Card 4 -->
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2" onclick="openServiceModal('service4')">
+                    <div class="p-8">
+                        <div class="w-16 h-16 bg-gradient-to-r from-navy to-accent-blue rounded-lg flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-navy mb-3">Договоры и переход прав</h3>
+                        <p class="text-gray-600 mb-4">Подготовка и регистрация в Роспатенте</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-gold">от 40 000 ₽</span>
+                            <button class="bg-navy text-white px-4 py-2 rounded-lg hover:bg-dark-blue transition-colors">
+                                Заказать
+                            </button>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">IP-аудит</h3>
-                    <p class="text-secondary mb-4">Комплексный аудит и оформление прав на интеллектуальную собственность</p>
-                    <div class="flex justify-between items-center">
-                        <span class="text-2xl font-bold text-primary">от 80 000 ₽</span>
-                        <button class="bg-primary text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">Заказать</button>
+                </div>
+
+                <!-- Service Card 5 -->
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2" onclick="openServiceModal('service5')">
+                    <div class="p-8">
+                        <div class="w-16 h-16 bg-gradient-to-r from-navy to-accent-blue rounded-lg flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-navy mb-3">Консультации</h3>
+                        <p class="text-gray-600 mb-4">Устные и письменные консультации</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-gold">от 5 000 ₽</span>
+                            <button class="bg-navy text-white px-4 py-2 rounded-lg hover:bg-dark-blue transition-colors">
+                                Заказать
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Card 6 -->
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2" onclick="openServiceModal('service6')">
+                    <div class="p-8">
+                        <div class="w-16 h-16 bg-gradient-to-r from-navy to-accent-blue rounded-lg flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-navy mb-3">IP-аудит</h3>
+                        <p class="text-gray-600 mb-4">Аудит и оформление прав на ИС</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-gold">от 75 000 ₽</span>
+                            <button class="bg-navy text-white px-4 py-2 rounded-lg hover:bg-dark-blue transition-colors">
+                                Заказать
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -187,31 +231,44 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-16 bg-light">
+    <section id="about" class="py-20 bg-white">
         <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">Об основателе</h2>
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="text-4xl font-bold text-navy mb-6">Об основателе</h2>
+                    <h3 class="text-2xl font-semibold text-gold mb-4">Анна Ларина</h3>
+                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                        Юрист с 10-летним опытом в сфере интеллектуальной собственности и защиты персональных данных. 
+                        Специализируется на юридическом сопровождении IT-проектов и цифровых стартапов.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-gold rounded-full"></div>
+                            <span class="text-gray-700">Магистр юриспруденции МГУ им. М.В. Ломоносова</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-gold rounded-full"></div>
+                            <span class="text-gray-700">Сертифицированный специалист по защите персональных данных</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-gold rounded-full"></div>
+                            <span class="text-gray-700">Более 200 успешно реализованных проектов</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-gold rounded-full"></div>
+                            <span class="text-gray-700">Член Ассоциации юристов России</span>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="bg-white rounded-lg p-8 shadow-sm">
-                    <div class="flex flex-col md:flex-row items-center gap-8">
-                        <div class="w-48 h-48 bg-gray-200 rounded-full flex items-center justify-center">
-                            <svg class="w-24 h-24 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                            </svg>
-                        </div>
-                        <div class="flex-1 text-center md:text-left">
-                            <h3 class="text-2xl font-bold text-primary mb-2">Анна Ларина</h3>
-                            <p class="text-lg text-secondary mb-4">Основатель и ведущий юрист</p>
-                            <div class="space-y-3 text-secondary">
-                                <p>• Опыт работы в IT-праве более 8 лет</p>
-                                <p>• Магистр права, специализация "Интеллектуальная собственность"</p>
-                                <p>• Более 200 успешно зарегистрированных товарных знаков</p>
-                                <p>• Эксперт по защите персональных данных и GDPR</p>
-                                <p>• Постоянный спикер на IT-конференциях</p>
-                            </div>
-                        </div>
+                <div class="relative">
+                    <div class="relative overflow-hidden rounded-2xl shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=600&h=800&fit=crop&crop=face" 
+                             alt="Анна Ларина - основатель Larina Legal" 
+                             class="w-full h-[600px] object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy/20 to-transparent"></div>
+                    </div>
+                    <div class="absolute -bottom-6 -right-6 w-24 h-24 bg-gold rounded-full flex items-center justify-center shadow-xl">
+                        <span class="text-navy font-bold text-2xl">10+</span>
                     </div>
                 </div>
             </div>
@@ -219,143 +276,181 @@
     </section>
 
     <!-- Advantages Section -->
-    <section id="advantages" class="py-16 bg-white">
+    <section class="py-20 bg-gray-50">
         <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">Почему выбирают нас</h2>
-                <p class="text-lg text-secondary max-w-2xl mx-auto">
-                    Мы специализируемся исключительно на IT-праве и знаем все нюансы цифрового бизнеса
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-navy mb-4">Почему выбирают нас</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Профессиональный подход и глубокая экспертиза в области IT-права
                 </p>
             </div>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="text-center">
-                    <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                        <span class="text-2xl font-bold text-white">8+</span>
+                    <div class="w-20 h-20 bg-gradient-to-r from-navy to-accent-blue rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2">Лет опыта</h3>
-                    <p class="text-secondary">в сфере IT-права и интеллектуальной собственности</p>
+                    <h3 class="text-xl font-bold text-navy mb-3">Быстрое решение</h3>
+                    <p class="text-gray-600">Оперативное решение юридических вопросов без потери качества</p>
                 </div>
                 
                 <div class="text-center">
-                    <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                        <span class="text-2xl font-bold text-white">200+</span>
+                    <div class="w-20 h-20 bg-gradient-to-r from-navy to-accent-blue rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                        </svg>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2">Проектов</h3>
-                    <p class="text-secondary">успешно завершенных дел по защите IP-прав</p>
+                    <h3 class="text-xl font-bold text-navy mb-3">Гарантия качества</h3>
+                    <p class="text-gray-600">100% гарантия соответствия всем требованиям законодательства</p>
                 </div>
                 
                 <div class="text-center">
-                    <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                        <span class="text-2xl font-bold text-white">24/7</span>
+                    <div class="w-20 h-20 bg-gradient-to-r from-navy to-accent-blue rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                        </svg>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2">Поддержка</h3>
-                    <p class="text-secondary">оперативные ответы на ваши вопросы</p>
+                    <h3 class="text-xl font-bold text-navy mb-3">Прозрачное ценообразование</h3>
+                    <p class="text-gray-600">Фиксированная стоимость услуг без скрытых платежей</p>
                 </div>
                 
                 <div class="text-center">
-                    <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                        <span class="text-2xl font-bold text-white">100%</span>
+                    <div class="w-20 h-20 bg-gradient-to-r from-navy to-accent-blue rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2">Результат</h3>
-                    <p class="text-secondary">гарантия качества и соблюдения сроков</p>
+                    <h3 class="text-xl font-bold text-navy mb-3">Индивидуальный подход</h3>
+                    <p class="text-gray-600">Персональное решение для каждого клиента и проекта</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Portfolio Section -->
-    <section id="portfolio" class="py-16 bg-light">
+    <section id="portfolio" class="py-20 bg-white">
         <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">Наши клиенты</h2>
-                <p class="text-lg text-secondary max-w-2xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-navy mb-4">Наши клиенты</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
                     Доверяют нам защиту своих цифровых активов
                 </p>
             </div>
             
-            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
-                <div class="bg-white p-6 rounded-lg shadow-sm flex items-center justify-center h-24">
-                    <span class="text-secondary font-semibold">TechStart</span>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                <div class="bg-gray-50 rounded-xl p-8 text-center hover:shadow-lg transition-shadow">
+                    <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=200&h=100&fit=crop" 
+                         alt="Клиент 1" class="w-32 h-16 object-contain mx-auto mb-4 grayscale hover:grayscale-0 transition-all">
+                    <h3 class="font-semibold text-navy">TechStart</h3>
+                    <p class="text-sm text-gray-600">Стартап в сфере FinTech</p>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-sm flex items-center justify-center h-24">
-                    <span class="text-secondary font-semibold">DigitalPro</span>
+                
+                <div class="bg-gray-50 rounded-xl p-8 text-center hover:shadow-lg transition-shadow">
+                    <img src="https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?w=200&h=100&fit=crop" 
+                         alt="Клиент 2" class="w-32 h-16 object-contain mx-auto mb-4 grayscale hover:grayscale-0 transition-all">
+                    <h3 class="font-semibold text-navy">DataSecure</h3>
+                    <p class="text-sm text-gray-600">Платформа для обработки данных</p>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-sm flex items-center justify-center h-24">
-                    <span class="text-secondary font-semibold">InnoSoft</span>
+                
+                <div class="bg-gray-50 rounded-xl p-8 text-center hover:shadow-lg transition-shadow">
+                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=200&h=100&fit=crop" 
+                         alt="Клиент 3" class="w-32 h-16 object-contain mx-auto mb-4 grayscale hover:grayscale-0 transition-all">
+                    <h3 class="font-semibold text-navy">MobileApp Co</h3>
+                    <p class="text-sm text-gray-600">Разработка мобильных приложений</p>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-sm flex items-center justify-center h-24">
-                    <span class="text-secondary font-semibold">DataFlow</span>
+                
+                <div class="bg-gray-50 rounded-xl p-8 text-center hover:shadow-lg transition-shadow">
+                    <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=200&h=100&fit=crop" 
+                         alt="Клиент 4" class="w-32 h-16 object-contain mx-auto mb-4 grayscale hover:grayscale-0 transition-all">
+                    <h3 class="font-semibold text-navy">CloudSoft</h3>
+                    <p class="text-sm text-gray-600">Облачные решения для бизнеса</p>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-sm flex items-center justify-center h-24">
-                    <span class="text-secondary font-semibold">CloudTech</span>
+                
+                <div class="bg-gray-50 rounded-xl p-8 text-center hover:shadow-lg transition-shadow">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=200&h=100&fit=crop" 
+                         alt="Клиент 5" class="w-32 h-16 object-contain mx-auto mb-4 grayscale hover:grayscale-0 transition-all">
+                    <h3 class="font-semibold text-navy">AI Solutions</h3>
+                    <p class="text-sm text-gray-600">Искусственный интеллект</p>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-sm flex items-center justify-center h-24">
-                    <span class="text-secondary font-semibold">AI Solutions</span>
+                
+                <div class="bg-gray-50 rounded-xl p-8 text-center hover:shadow-lg transition-shadow">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=200&h=100&fit=crop" 
+                         alt="Клиент 6" class="w-32 h-16 object-contain mx-auto mb-4 grayscale hover:grayscale-0 transition-all">
+                    <h3 class="font-semibold text-navy">E-Commerce Plus</h3>
+                    <p class="text-sm text-gray-600">Электронная коммерция</p>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                    <div>
+                        <div class="text-4xl font-bold text-gold mb-2">200+</div>
+                        <div class="text-gray-600">Успешных проектов</div>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold text-gold mb-2">10</div>
+                        <div class="text-gray-600">Лет опыта</div>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold text-gold mb-2">100%</div>
+                        <div class="text-gray-600">Довольных клиентов</div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Process Section -->
-    <section class="py-16 bg-white">
+    <section class="py-20 bg-gray-50">
         <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">Процесс работы</h2>
-                <p class="text-lg text-secondary max-w-2xl mx-auto">
-                    Простой и понятный алгоритм сотрудничества
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-navy mb-4">Процесс работы</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Пошаговое описание нашего сотрудничества
                 </p>
             </div>
             
             <div class="max-w-4xl mx-auto">
                 <div class="space-y-8">
-                    <div class="flex items-start space-x-4">
-                        <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
-                            <span class="text-white font-bold">1</span>
-                        </div>
+                    <div class="flex items-start space-x-6">
+                        <div class="flex-shrink-0 w-12 h-12 bg-gold rounded-full flex items-center justify-center text-navy font-bold text-lg">1</div>
                         <div>
-                            <h3 class="text-xl font-semibold mb-2">Консультация</h3>
-                            <p class="text-secondary">Обсуждаем ваши задачи и определяем оптимальную стратегию защиты</p>
+                            <h3 class="text-xl font-bold text-navy mb-2">Первичная консультация</h3>
+                            <p class="text-gray-600">Анализируем ваш проект и определяем необходимые юридические услуги. Консультация бесплатная.</p>
                         </div>
                     </div>
                     
-                    <div class="flex items-start space-x-4">
-                        <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
-                            <span class="text-white font-bold">2</span>
-                        </div>
+                    <div class="flex items-start space-x-6">
+                        <div class="flex-shrink-0 w-12 h-12 bg-gold rounded-full flex items-center justify-center text-navy font-bold text-lg">2</div>
                         <div>
-                            <h3 class="text-xl font-semibold mb-2">Анализ</h3>
-                            <p class="text-secondary">Проводим детальный анализ ваших цифровых активов и рисков</p>
+                            <h3 class="text-xl font-bold text-navy mb-2">Составление плана</h3>
+                            <p class="text-gray-600">Разрабатываем детальный план работ с указанием сроков и стоимости каждого этапа.</p>
                         </div>
                     </div>
                     
-                    <div class="flex items-start space-x-4">
-                        <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
-                            <span class="text-white font-bold">3</span>
-                        </div>
+                    <div class="flex items-start space-x-6">
+                        <div class="flex-shrink-0 w-12 h-12 bg-gold rounded-full flex items-center justify-center text-navy font-bold text-lg">3</div>
                         <div>
-                            <h3 class="text-xl font-semibold mb-2">Подготовка документов</h3>
-                            <p class="text-secondary">Готовим все необходимые документы для регистрации и защиты прав</p>
+                            <h3 class="text-xl font-bold text-navy mb-2">Заключение договора</h3>
+                            <p class="text-gray-600">Подписываем договор на оказание юридических услуг с фиксированными условиями.</p>
                         </div>
                     </div>
                     
-                    <div class="flex items-start space-x-4">
-                        <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
-                            <span class="text-white font-bold">4</span>
-                        </div>
+                    <div class="flex items-start space-x-6">
+                        <div class="flex-shrink-0 w-12 h-12 bg-gold rounded-full flex items-center justify-center text-navy font-bold text-lg">4</div>
                         <div>
-                            <h3 class="text-xl font-semibold mb-2">Регистрация</h3>
-                            <p class="text-secondary">Подаем документы в соответствующие органы и ведем дело до результата</p>
+                            <h3 class="text-xl font-bold text-navy mb-2">Выполнение работ</h3>
+                            <p class="text-gray-600">Реализуем все необходимые юридические процедуры с регулярным информированием о ходе работ.</p>
                         </div>
                     </div>
                     
-                    <div class="flex items-start space-x-4">
-                        <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
-                            <span class="text-white font-bold">5</span>
-                        </div>
+                    <div class="flex items-start space-x-6">
+                        <div class="flex-shrink-0 w-12 h-12 bg-gold rounded-full flex items-center justify-center text-navy font-bold text-lg">5</div>
                         <div>
-                            <h3 class="text-xl font-semibold mb-2">Сопровождение</h3>
-                            <p class="text-secondary">Обеспечиваем постоянную поддержку и защиту ваших прав</p>
+                            <h3 class="text-xl font-bold text-navy mb-2">Сдача результата</h3>
+                            <p class="text-gray-600">Передаем все документы и предоставляем рекомендации по дальнейшему ведению дел.</p>
                         </div>
                     </div>
                 </div>
@@ -364,69 +459,73 @@
     </section>
 
     <!-- FAQ Section -->
-    <section class="py-16 bg-light">
+    <section class="py-20 bg-white">
         <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">Частые вопросы</h2>
-                <p class="text-lg text-secondary max-w-2xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-navy mb-4">Частые вопросы</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
                     Ответы на самые популярные вопросы о наших услугах
                 </p>
             </div>
             
             <div class="max-w-3xl mx-auto space-y-4">
-                <div class="bg-white rounded-lg shadow-sm">
-                    <button class="faq-button w-full text-left p-6 focus:outline-none" onclick="toggleFAQ(this)">
-                        <div class="flex justify-between items-center">
-                            <h3 class="text-lg font-semibold">Сколько времени занимает регистрация товарного знака?</h3>
-                            <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </div>
+                <div class="border border-gray-200 rounded-lg">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50" onclick="toggleFAQ(1)">
+                        <span class="font-semibold text-navy">Сколько времени занимает регистрация товарного знака?</span>
+                        <svg class="w-5 h-5 transform transition-transform" id="faq-icon-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
                     </button>
-                    <div class="faq-content hidden px-6 pb-6">
-                        <p class="text-secondary">Процедура регистрации товарного знака в Роспатенте занимает от 12 до 18 месяцев. Мы ведем дело на всех этапах и информируем вас о ходе рассмотрения.</p>
+                    <div class="px-6 pb-4 hidden" id="faq-content-1">
+                        <p class="text-gray-600">Процедура регистрации товарного знака в Роспатенте занимает от 12 до 18 месяцев. Мы ведем весь процесс от подачи заявки до получения свидетельства.</p>
                     </div>
                 </div>
                 
-                <div class="bg-white rounded-lg shadow-sm">
-                    <button class="faq-button w-full text-left p-6 focus:outline-none" onclick="toggleFAQ(this)">
-                        <div class="flex justify-between items-center">
-                            <h3 class="text-lg font-semibold">Обязательно ли регистрировать программное обеспечение?</h3>
-                            <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </div>
+                <div class="border border-gray-200 rounded-lg">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50" onclick="toggleFAQ(2)">
+                        <span class="font-semibold text-navy">Что включает в себя услуга по защите персональных данных?</span>
+                        <svg class="w-5 h-5 transform transition-transform" id="faq-icon-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
                     </button>
-                    <div class="faq-content hidden px-6 pb-6">
-                        <p class="text-secondary">Регистрация ПО не является обязательной, но дает дополнительные гарантии защиты ваших прав и упрощает доказательство авторства в спорных ситуациях.</p>
+                    <div class="px-6 pb-4 hidden" id="faq-content-2">
+                        <p class="text-gray-600">Услуга включает: аудит текущего состояния, разработку политики обработки ПДн, подготовку необходимых документов, уведомление Роскомнадзора, обучение сотрудников.</p>
                     </div>
                 </div>
                 
-                <div class="bg-white rounded-lg shadow-sm">
-                    <button class="faq-button w-full text-left p-6 focus:outline-none" onclick="toggleFAQ(this)">
-                        <div class="flex justify-between items-center">
-                            <h3 class="text-lg font-semibold">Что включает в себя соблюдение 152-ФЗ?</h3>
-                            <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </div>
+                <div class="border border-gray-200 rounded-lg">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50" onclick="toggleFAQ(3)">
+                        <span class="font-semibold text-navy">Можно ли получить консультацию онлайн?</span>
+                        <svg class="w-5 h-5 transform transition-transform" id="faq-icon-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
                     </button>
-                    <div class="faq-content hidden px-6 pb-6">
-                        <p class="text-secondary">Включает разработку политики обработки ПДн, уведомление Роскомнадзора, настройку технических мер защиты, обучение сотрудников и регулярный аудит соответствия.</p>
+                    <div class="px-6 pb-4 hidden" id="faq-content-3">
+                        <p class="text-gray-600">Да, мы проводим консультации в формате видеоконференций. Первичная консультация бесплатная, длительностью до 30 минут.</p>
                     </div>
                 </div>
                 
-                <div class="bg-white rounded-lg shadow-sm">
-                    <button class="faq-button w-full text-left p-6 focus:outline-none" onclick="toggleFAQ(this)">
-                        <div class="flex justify-between items-center">
-                            <h3 class="text-lg font-semibold">Можете ли вы помочь с международной регистрацией?</h3>
-                            <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </div>
+                <div class="border border-gray-200 rounded-lg">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50" onclick="toggleFAQ(4)">
+                        <span class="font-semibold text-navy">Какие документы нужны для регистрации ПО?</span>
+                        <svg class="w-5 h-5 transform transition-transform" id="faq-icon-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
                     </button>
-                    <div class="faq-content hidden px-6 pb-6">
-                        <p class="text-secondary">Да, мы работаем с международными партнерами и можем помочь с регистрацией товарных знаков и патентов в других юрисдикциях через систему Madrid Protocol.</p>
+                    <div class="px-6 pb-4 hidden" id="faq-content-4">
+                        <p class="text-gray-600">Для регистрации программы для ЭВМ необходимы: исходный код программы, описание программы, документы, подтверждающие авторство. Мы поможем подготовить все документы.</p>
+                    </div>
+                </div>
+                
+                <div class="border border-gray-200 rounded-lg">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50" onclick="toggleFAQ(5)">
+                        <span class="font-semibold text-navy">Предоставляете ли вы гарантии на свои услуги?</span>
+                        <svg class="w-5 h-5 transform transition-transform" id="faq-icon-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="px-6 pb-4 hidden" id="faq-content-5">
+                        <p class="text-gray-600">Да, мы предоставляем гарантию качества на все наши услуги. В случае выявления ошибок в нашей работе, мы исправляем их бесплатно.</p>
                     </div>
                 </div>
             </div>
@@ -434,127 +533,171 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-16 bg-white">
+    <section id="contact" class="py-20 bg-navy">
         <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">Свяжитесь с нами</h2>
-                <p class="text-lg text-secondary max-w-2xl mx-auto">
-                    Получите бесплатную консультацию по вашему проекту
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-white mb-4">Свяжитесь с нами</h2>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                    Получите профессиональную консультацию по вашему проекту
                 </p>
             </div>
             
-            <div class="max-w-4xl mx-auto">
-                <div class="grid md:grid-cols-2 gap-12">
-                    <div>
-                        <h3 class="text-2xl font-semibold mb-6">Контактная информация</h3>
-                        <div class="space-y-4">
-                            <div class="flex items-center space-x-3">
-                                <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="grid lg:grid-cols-2 gap-16">
+                <div>
+                    <h3 class="text-2xl font-bold text-white mb-8">Контактная информация</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-gold rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
                                 </svg>
-                                <span>+7 (900) 123-45-67</span>
                             </div>
-                            <div class="flex items-center space-x-3">
-                                <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                                </svg>
-                                <span>info@larinalegal.ru</span>
-                            </div>
-                            <div class="flex items-center space-x-3">
-                                <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                </svg>
-                                <span>г. Москва, ул. Тверская, д. 1</span>
+                            <div>
+                                <h4 class="text-white font-semibold mb-1">Телефон</h4>
+                                <p class="text-gray-300">+7 (900) 123-45-67</p>
                             </div>
                         </div>
                         
-                        <div class="mt-8">
-                            <h4 class="text-lg font-semibold mb-4">Время работы</h4>
-                            <div class="space-y-2 text-secondary">
-                                <p>Пн-Пт: 9:00 - 18:00</p>
-                                <p>Сб-Вс: по договоренности</p>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-gold rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold mb-1">Email</h4>
+                                <p class="text-gray-300">info@larinalegal.ru</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-gold rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold mb-1">Адрес</h4>
+                                <p class="text-gray-300">г. Москва, ул. Тверская, д. 1, офис 100</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-gold rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold mb-1">Режим работы</h4>
+                                <p class="text-gray-300">Пн-Пт: 9:00-18:00<br>Сб-Вс: по договоренности</p>
                             </div>
                         </div>
                     </div>
-                    
-                    <div>
-                        <form class="space-y-6">
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Имя *</label>
-                                <input type="text" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Email *</label>
-                                <input type="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Телефон</label>
-                                <input type="tel" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Услуга</label>
-                                <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
-                                    <option>Выберите услугу</option>
-                                    <option>Защита персональных данных по 152-ФЗ</option>
-                                    <option>Регистрация товарного знака</option>
-                                    <option>Регистрация ПО и баз данных</option>
-                                    <option>Договоры и переход прав</option>
-                                    <option>Консультации</option>
-                                    <option>IP-аудит</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Сообщение</label>
-                                <textarea rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Опишите ваш проект или вопрос"></textarea>
-                            </div>
-                            <button type="submit" class="w-full bg-primary text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
-                                Отправить заявку
-                            </button>
-                        </form>
-                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8">
+                    <h3 class="text-2xl font-bold text-navy mb-6">Получить консультацию</h3>
+                    <form id="contactForm" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Имя *</label>
+                            <input type="text" id="name" name="name" required 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent">
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+                            <input type="email" id="email" name="email" required 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent">
+                        </div>
+                        
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Телефон</label>
+                            <input type="tel" id="phone" name="phone" 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent">
+                        </div>
+                        
+                        <div>
+                            <label for="service" class="block text-sm font-medium text-gray-700 mb-2">Интересующая услуга</label>
+                            <select id="service" name="service" 
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent">
+                                <option value="">Выберите услугу</option>
+                                <option value="personal-data">Защита персональных данных</option>
+                                <option value="trademark">Регистрация товарного знака</option>
+                                <option value="software">Регистрация ПО и баз данных</option>
+                                <option value="contracts">Договоры и переход прав</option>
+                                <option value="consultation">Консультация</option>
+                                <option value="ip-audit">IP-аудит</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Сообщение *</label>
+                            <textarea id="message" name="message" rows="4" required 
+                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent"
+                                      placeholder="Опишите ваш проект или вопрос"></textarea>
+                        </div>
+                        
+                        <div class="flex items-start space-x-3">
+                            <input type="checkbox" id="privacy" name="privacy" required class="mt-1">
+                            <label for="privacy" class="text-sm text-gray-600">
+                                Я согласен с <a href="#" class="text-gold hover:underline">политикой обработки персональных данных</a> *
+                            </label>
+                        </div>
+                        
+                        <button type="submit" 
+                                class="w-full bg-gold hover:bg-yellow-500 text-navy px-8 py-4 rounded-lg font-semibold text-lg transition-all transform hover:scale-105">
+                            Отправить заявку
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-primary text-white py-12">
+    <footer class="bg-dark-blue text-white py-12">
         <div class="container mx-auto px-4">
             <div class="grid md:grid-cols-4 gap-8">
                 <div>
-                    <div class="flex items-center space-x-2 mb-4">
-                        <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-                            <span class="text-primary font-bold">LL</span>
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-10 h-10 bg-gradient-to-r from-gold to-yellow-500 rounded-lg flex items-center justify-center">
+                            <span class="text-navy font-bold text-lg">L</span>
                         </div>
-                        <span class="text-xl font-semibold">Larina Legal</span>
+                        <div>
+                            <h3 class="text-xl font-bold">Larina Legal</h3>
+                            <p class="text-xs text-gray-400">Юридическая поддержка IT</p>
+                        </div>
                     </div>
-                    <p class="text-blue-200">Юридическая поддержка цифровых проектов</p>
+                    <p class="text-gray-400 text-sm">
+                        Профессиональная юридическая поддержка цифровых проектов и IT-бизнеса.
+                    </p>
                 </div>
                 
                 <div>
                     <h4 class="font-semibold mb-4">Услуги</h4>
-                    <ul class="space-y-2 text-blue-200">
-                        <li><a href="#services" class="hover:text-white transition-colors">Защита ПДн</a></li>
-                        <li><a href="#services" class="hover:text-white transition-colors">Товарные знаки</a></li>
-                        <li><a href="#services" class="hover:text-white transition-colors">Регистрация ПО</a></li>
-                        <li><a href="#services" class="hover:text-white transition-colors">IP-аудит</a></li>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#services" class="hover:text-gold transition-colors">Защита персональных данных</a></li>
+                        <li><a href="#services" class="hover:text-gold transition-colors">Регистрация товарного знака</a></li>
+                        <li><a href="#services" class="hover:text-gold transition-colors">Регистрация ПО</a></li>
+                        <li><a href="#services" class="hover:text-gold transition-colors">IP-аудит</a></li>
                     </ul>
                 </div>
                 
                 <div>
                     <h4 class="font-semibold mb-4">Компания</h4>
-                    <ul class="space-y-2 text-blue-200">
-                        <li><a href="#about" class="hover:text-white transition-colors">О нас</a></li>
-                        <li><a href="#advantages" class="hover:text-white transition-colors">Преимущества</a></li>
-                        <li><a href="#portfolio" class="hover:text-white transition-colors">Клиенты</a></li>
-                        <li><a href="#contact" class="hover:text-white transition-colors">Контакты</a></li>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#about" class="hover:text-gold transition-colors">О нас</a></li>
+                        <li><a href="#portfolio" class="hover:text-gold transition-colors">Клиенты</a></li>
+                        <li><a href="#contact" class="hover:text-gold transition-colors">Контакты</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors">Политика конфиденциальности</a></li>
                     </ul>
                 </div>
                 
                 <div>
                     <h4 class="font-semibold mb-4">Контакты</h4>
-                    <div class="space-y-2 text-blue-200">
+                    <div class="space-y-2 text-sm text-gray-400">
                         <p>+7 (900) 123-45-67</p>
                         <p>info@larinalegal.ru</p>
                         <p>г. Москва, ул. Тверская, д. 1</p>
@@ -562,53 +705,61 @@
                 </div>
             </div>
             
-            <div class="border-t border-blue-700 mt-8 pt-8 text-center text-blue-200">
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-sm text-gray-400">
                 <p>&copy; 2024 Larina Legal. Все права защищены.</p>
             </div>
         </div>
     </footer>
 
+    <!-- Service Modals -->
+    <div id="serviceModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-8">
+                <div class="flex justify-between items-start mb-6">
+                    <h3 id="modalTitle" class="text-2xl font-bold text-navy"></h3>
+                    <button onclick="closeServiceModal()" class="text-gray-400 hover:text-gray-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div id="modalContent" class="text-gray-600 mb-8"></div>
+                <div class="flex justify-between items-center">
+                    <span id="modalPrice" class="text-3xl font-bold text-gold"></span>
+                    <a href="#contact" onclick="closeServiceModal()" class="bg-navy text-white px-6 py-3 rounded-lg hover:bg-dark-blue transition-colors">
+                        Заказать услугу
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Mobile menu toggle
-        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenu.classList.toggle('hidden');
-        });
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('-translate-x-full');
+        }
 
         // FAQ toggle
-        function toggleFAQ(button) {
-            const content = button.nextElementSibling;
-            const icon = button.querySelector('svg');
+        function toggleFAQ(index) {
+            const content = document.getElementById(`faq-content-${index}`);
+            const icon = document.getElementById(`faq-icon-${index}`);
             
             content.classList.toggle('hidden');
             icon.classList.toggle('rotate-180');
         }
 
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-                
-                // Close mobile menu if open
-                const mobileMenu = document.getElementById('mobile-menu');
-                if (!mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.add('hidden');
-                }
-            });
-        });
-
-        // Form submission
-        document.querySelector('form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Спасибо за заявку! Мы свяжемся с вами в ближайшее время.');
-        });
-    </script>
-</body>
-</html>
+        // Service modal
+        const serviceData = {
+            service1: {
+                title: 'Защита персональных данных по 152-ФЗ',
+                price: 'от 50 000 ₽',
+                content: `
+                    <h4 class="font-semibold mb-3">Что включает услуга:</h4>
+                    <ul class="list-disc list-inside space-y-2 mb-6">
+                        <li>Аудит текущего состояния обработки персональных данных</li>
+                        <li>Разработка политики обработки персональных данных</li>
+                        <li>Подготовка уведомления в Роскомнадзор</li>
+                        <li>Разработка внутренних документов и процедур</li>
+                        <li>Обучение сотрудников требованиям
