@@ -256,8 +256,7 @@
 
       settingsBtn.addEventListener('click', ()=>{ settingsPanel.classList.toggle('hidden'); }); saveSettings.addEventListener('click', ()=>{ save(STORAGE_KEYS.cols, columns); save(STORAGE_KEYS.visible, visible); settingsPanel.classList.add('hidden'); renderTableHeader(); renderTableBody(); }); resetSettings.addEventListener('click', ()=>{ if(confirm('Сбросить настройки таблицы и данные к примерам?')){ columns = DEFAULT_COLUMNS.slice(); visible = columns.map(c=>c.key); data = SAMPLE_DATA.slice(); save(STORAGE_KEYS.cols, columns); save(STORAGE_KEYS.visible, visible); save(STORAGE_KEYS.data, data); renderTableHeader(); renderTableBody(); renderColumnsSettings(); } });
 
-      exportBtn.addEventListener('click', ()=>{ const visibleCols = columns.filter(c=>visible.includes(c.key)); const header = visibleCols.map(c=>`"${c.label}"`).join(','); const rows = data.map(r=> visibleCols.map(c=>`"${(r[c.key]||'').toString().replace(/"/g,'""')}"`).join(',')); const csv = [header, ...rows].join('
-'); const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'phones_export.csv'; a.click(); URL.revokeObjectURL(url); });
+      exportBtn.addEventListener('click', ()=>{ const visibleCols = columns.filter(c=>visible.includes(c.key)); const header = visibleCols.map(c=>`"${c.label}"`).join(','); const rows = data.map(r=> visibleCols.map(c=>`"${(r[c.key]||'').toString().replace(/"/g,'""')}"`).join(',')); const csv = [header, ...rows].join('\n'); const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'phones_export.csv'; a.click(); URL.revokeObjectURL(url); });
 
       addBtn.addEventListener('click', ()=>{ openEditModal({ id: 'PH-'+String(Math.floor(Math.random()*9000)+1000), model:'', img:'', serial:'', user:'', location:'', purchase_doc:'', purchase_date:'', status:'available', notes:'' }); });
 
@@ -277,4 +276,151 @@
       function attachEvents(){ searchInput.addEventListener('input', ()=> renderTableBody()); statusFilter.addEventListener('change', ()=> renderTableBody()); document.addEventListener('click', (e)=>{ if(!settingsPanel.contains(e.target) && !settingsBtn.contains(e.target)){ settingsPanel.classList.add('hidden'); } }); }
     </script>
   </body>
-</html>
+</html>iv>
+            <button id="exportBtn" class="px-3 py-2 rounded-md bg-gradient-to-br from-slate-800 to-slate-700 text-white text-sm shadow-sm hover:opacity-95 anim">Экспорт CSV</button>
+            <button id="settingsBtn" class="px-3 py-2 rounded-md border border-slate-200 dark:border-slate-700 text-sm anim">⚙️ Настройки</button>
+          </div>
+        </div>
+      </header>
+
+      <main class="max-w-7xl mx-auto space-y-6">
+        <section class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+          <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm card-hover anim">
+            <div class="text-sm text-slate-500">Всего</div>
+            <div id="statTotal" class="text-2xl font-semibold mt-1 count-up">0</div>
+          </div>
+          <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm card-hover anim">
+            <div class="text-sm text-slate-500">Свободные</div>
+            <div id="statAvailable" class="text-2xl font-semibold mt-1 count-up">0</div>
+          </div>
+          <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm card-hover anim">
+            <div class="text-sm text-slate-500">Выданные</div>
+            <div id="statAssigned" class="text-2xl font-semibold mt-1 count-up">0</div>
+          </div>
+          <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm card-hover anim">
+            <div class="text-sm text-slate-500">Поломанные</div>
+            <div id="statBroken" class="text-2xl font-semibold mt-1 count-up">0</div>
+          </div>
+        </section>
+
+        <section class="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm anim">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div class="flex items-center gap-3 flex-1">
+              <div class="relative flex-1">
+                <input id="searchInput" class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-transparent focus-accent anim" placeholder="Поиск по serial, user или документу..." />
+                <div class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">🔎</div>
+              </div>
+
+              <select id="statusFilter" class="px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-transparent anim">
+                <option value="">Все статусы</option>
+                <option value="available">Свободные</option>
+                <option value="assigned">Выданные</option>
+                <option value="broken">Поломанные</option>
+              </select>
+
+              <button id="addBtn" class="px-4 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-sky-400 text-white anim">Добавить телефон</button>
+            </div>
+            <div class="text-sm text-slate-500">Результатов: <span id="resultCount" class="font-medium">0</span></div>
+          </div>
+
+          <div class="mt-3">
+            <div class="text-xs text-slate-500 mb-2">Активные колонки:</div>
+            <div id="activeCols" class="flex flex-wrap gap-2"></div>
+          </div>
+        </section>
+
+        <section class="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm anim">
+          <div class="overflow-auto">
+            <table id="phonesTable" class="min-w-full table-auto">
+              <thead>
+                <tr id="tableHeader" class="text-sm text-slate-500"></tr>
+              </thead>
+              <tbody id="tableBody" class="divide-y divide-slate-100 dark:divide-slate-700"></tbody>
+            </table>
+
+            <!-- Cards for small screens -->
+            <div id="cardsList" class="grid grid-cols-1 gap-3"></div>
+          </div>
+        </section>
+      </main>
+
+      <div id="modalRoot"></div>
+
+      <div id="settingsPanel" class="fixed right-6 top-24 w-80 bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-lg hidden anim">
+        <h3 class="text-sm font-medium mb-3">Настройки таблицы</h3>
+        <p class="text-xs text-slate-500 mb-3">Перетащи столбцы для изменения порядка. Снимай галочки, чтобы скрыть колонки.</p>
+        <div id="columnsList" class="space-y-2 max-h-64 overflow-auto"></div>
+        <div class="mt-3 flex gap-2">
+          <button id="saveSettings" class="flex-1 px-3 py-2 rounded-lg bg-indigo-500 text-white">Сохранить</button>
+          <button id="resetSettings" class="px-3 py-2 rounded-lg border">Сброс</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // images: small inline SVG thumbnails for example models
+      const IMG_YEALINK = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="80"><rect rx="8" ry="8" width="120" height="80" fill="%23e6f0ff"/><text x="10" y="45" font-size="14" fill="%233b82f6">Yealink T46S</text></svg>';
+      const IMG_POLYCOM = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="80"><rect rx="8" ry="8" width="120" height="80" fill="%23fff7ed"/><text x="10" y="45" font-size="14" fill="%23f59e0b">Polycom VVX</text></svg>';
+      const IMG_CISCO = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="80"><rect rx="8" ry="8" width="120" height="80" fill="%23eef2ff"/><text x="10" y="45" font-size="14" fill="%234f46e5">Cisco 8845</text></svg>';
+
+      const SAMPLE_DATA = [
+        { id: "PH-0001", model: "Yealink T46S", img: IMG_YEALINK, serial: "SNY-10001", user: "Ivan Petrov", location: "Moscow - Office 1", purchase_doc: "INV-2023-045", purchase_date: "2023-04-12", status: "assigned", notes: "Headset used" },
+        { id: "PH-0002", model: "Polycom VVX 450", img: IMG_POLYCOM, serial: "SNP-20023", user: "", location: "Storage", purchase_doc: "INV-2024-012", purchase_date: "2024-01-05", status: "available", notes: "Spare unit" },
+        { id: "PH-0003", model: "Grandstream GXP2130", img: IMG_YEALINK, serial: "SNG-33455", user: "Olga Smirnova", location: "Saint Petersburg - Office 3", purchase_doc: "INV-2022-099", purchase_date: "2022-09-01", status: "assigned", notes: "Replaced handset" },
+        { id: "PH-0004", model: "Cisco 8845", img: IMG_CISCO, serial: "SNC-44210", user: "", location: "Repair Center", purchase_doc: "INV-2021-002", purchase_date: "2021-02-18", status: "broken", notes: "Screen cracked" },
+        { id: "PH-0005", model: "Yealink T33", img: IMG_YEALINK, serial: "SNY-10078", user: "Dmitry Kozlov", location: "Moscow - Office 2", purchase_doc: "INV-2023-200", purchase_date: "2023-11-20", status: "assigned", notes: "" },
+        { id: "PH-0006", model: "Polycom VVX 250", img: IMG_POLYCOM, serial: "SNP-20077", user: "", location: "Storage", purchase_doc: "INV-2020-300", purchase_date: "2020-07-10", status: "available", notes: "" },
+        { id: "PH-0007", model: "Grandstream GXP1625", img: IMG_YEALINK, serial: "SNG-11000", user: "Sergey Ivanov", location: "Moscow - Office 1", purchase_doc: "INV-2024-040", purchase_date: "2024-03-30", status: "assigned", notes: "" },
+        { id: "PH-0008", model: "Yealink T54W", img: IMG_YEALINK, serial: "SNY-10111", user: "", location: "Storage", purchase_doc: "INV-2024-078", purchase_date: "2024-06-21", status: "available", notes: "Wifi unit" },
+        { id: "PH-0009", model: "Cisco CP-7841", img: IMG_CISCO, serial: "SNC-55233", user: "Anna Petrova", location: "Saint Petersburg - Office 1", purchase_doc: "INV-2022-150", purchase_date: "2022-12-02", status: "assigned", notes: "" },
+        { id: "PH-0010", model: "Snom D785", img: IMG_POLYCOM, serial: "SND-00999", user: "", location: "Repair Center", purchase_doc: "INV-2020-990", purchase_date: "2020-10-10", status: "broken", notes: "Power issue" },
+        { id: "PH-0011", model: "Yealink T21P", img: IMG_YEALINK, serial: "SNY-11112", user: "Mikhail Orlov", location: "Moscow - Office 3", purchase_doc: "INV-2019-321", purchase_date: "2019-06-15", status: "assigned", notes: "" },
+        { id: "PH-0012", model: "Grandstream GXP1780", img: IMG_YEALINK, serial: "SNG-22221", user: "", location: "Storage", purchase_doc: "INV-2025-005", purchase_date: "2025-02-14", status: "available", notes: "New batch" }
+      ];
+
+      const DEFAULT_COLUMNS = [
+        { key: 'id', label: 'ID' },
+        { key: 'img', label: 'Фото' },
+        { key: 'model', label: 'Model' },
+        { key: 'serial', label: 'Serial' },
+        { key: 'user', label: 'Assigned To' },
+        { key: 'location', label: 'Location' },
+        { key: 'purchase_doc', label: 'Purchase Doc' },
+        { key: 'purchase_date', label: 'Purchase Date' },
+        { key: 'status', label: 'Status' },
+        { key: 'notes', label: 'Notes' }
+      ];
+
+      const STORAGE_KEYS = { data: 'ips_phones_data_v2', cols: 'ips_phones_cols_v2', visible: 'ips_phones_visible_v2', theme: 'ips_theme_v2' };
+      let data = load(STORAGE_KEYS.data, SAMPLE_DATA.slice());
+      let columns = load(STORAGE_KEYS.cols, DEFAULT_COLUMNS.slice());
+      let visible = load(STORAGE_KEYS.visible, columns.map(c => c.key));
+
+      const tableHeader = document.getElementById('tableHeader');
+      const tableBody = document.getElementById('tableBody');
+      const cardsList = document.getElementById('cardsList');
+      const searchInput = document.getElementById('searchInput');
+      const statusFilter = document.getElementById('statusFilter');
+      const resultCount = document.getElementById('resultCount');
+      const statTotal = document.getElementById('statTotal');
+      const statAvailable = document.getElementById('statAvailable');
+      const statAssigned = document.getElementById('statAssigned');
+      const statBroken = document.getElementById('statBroken');
+      const settingsBtn = document.getElementById('settingsBtn');
+      const settingsPanel = document.getElementById('settingsPanel');
+      const columnsList = document.getElementById('columnsList');
+      const saveSettings = document.getElementById('saveSettings');
+      const resetSettings = document.getElementById('resetSettings');
+      const exportBtn = document.getElementById('exportBtn');
+      const themeToggle = document.getElementById('themeToggle');
+      const themeIcon = document.getElementById('themeIcon');
+      const addBtn = document.getElementById('addBtn');
+      const activeCols = document.getElementById('activeCols');
+
+      initTheme(); renderTableHeader(); renderTableBody(); renderStats(); renderColumnsSettings(); attachEvents();
+
+      function load(key, fallback){ try{ const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; }catch(e){ return fallback; } }
+      function save(key, value){ try{ localStorage.setItem(key, JSON.stringify(value)); }catch(e){} }
+
+      function initTheme(){ const saved = load(STORAGE_KEYS.theme, null); const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; const mode = saved === 'dark' || (saved === null && prefersDark) ? 'dark' : 'light'; setTheme(mode); window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e)=>{ const saved2 = load(STORAGE_KEYS.theme, null); if(saved2 === null){ setTheme(e.matches ? 'dark':'light'); } }); }
+      function setTheme(mode){ if(mode === 'dark') document.documentElement.classList.add('dark'); else document.documentElement.classList.remove('dark'); save(STORAGE_KEYS.theme, mode); themeIcon.innerHTML 
