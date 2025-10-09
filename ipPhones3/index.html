@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="ru" class="antialiased">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>IP Phones Inventory — Apple Style (vanilla JS)</title>
+
+    <!-- Tailwind Play CDN for quick demo (Drop into project or compile tailwind for production) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Theme variables for Apple-like soft look */
+      :root{
+        --glass-bg: rgba(255,255,255,0.6);
+        --glass-border: rgba(0,0,0,0.06);
+        --accent: 59 130 246; /* rgb components for accent (blue-500) */
+        --card-shadow: 0 6px 18px rgba(15,23,42,0.06);
+      }
+      html.dark{
+        --glass-bg: rgba(8,10,18,0.45);
+        --glass-border: rgba(255,255,255,0.04);
+        --accent: 96 165 250; /* lighter blue for dark */
+        --card-shadow: 0 10px 30px rgba(2,6,23,0.6);
+      }
+
+      /* Frosted glass for header */
+      .frost {
+        background: linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.4) 100%);
+        backdrop-filter: blur(8px) saturate(120%);
+        border: 1px solid var(--glass-border);
+      }
+      html.dark .frost{
+        background: linear-gradient(180deg, rgba(8,10,18,0.45) 0%, rgba(8,10,18,0.3) 100%);
+      }
+
+      /* Smooth animations */
+      .anim { transition: all 240ms cubic-bezier(.2,.9,.3,1); }
+      .card-hover:hover{ transform: translateY(-6px) scale(1.005); box-shadow: var(--card-shadow); }
+
+      /* Drag placeholder style */
+      .dragging { opacity: 0.35; transform: scale(0.98); }
+      .col-placeholder { outline: 2px dashed rgba(var(--accent),0.14); border-radius: 8px; }
+
+      /* Modal animation */
+      .modal-enter{ transform: translateY(10px) scale(.98); opacity: 0; }
+      .modal-enter.modal-active{ transform: translateY(0) scale(1); opacity: 1; }
+
+      /* Small tweaks for table */
+      table td, table th{ white-space: nowrap; }
+
+      /* subtle focus ring using accent */
+      .focus-accent:focus{ outline: 3px solid rgba(var(--accent),0.12); }
+
+      /* number counter animation */
+      .count-up{ transition: all 600ms cubic-bezier(.2,.8,.3,1); }
+    </style>
+  </head>
+  <body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100">
+    <div id="app" class="min-h-screen p-6 lg:p-10">
+      <!-- Header -->
+      <header class="max-w-7xl mx-auto mb-6 frosted">
+        <div class="frost rounded-2xl p-4 flex items-center justify-between gap-4 anim">
+          <div class="flex items-center gap-4">
+            <div class="rounded-full w-12 h-12 bg-gradient-to-br from-sky-400 to-indigo-500 flex items-center justify-center text-white shadow-lg">📞</div>
+            <div>
+              <h1 class="text-lg sm:text-2xl font-semibold">IP Phones Inventory</h1>
+              <p class="text-sm text-slate-500 dark:text-slate-300">Apple-style интерфейс — быстрый доступ, drag & drop колонок, тёмная тема.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2 bg-transparent rounded-md p-1">
+              <button id="themeToggle" aria-label="Toggle theme" class="w-10 h-10 rounded-md flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 anim focus-accent">
+                <svg id="themeIcon" class="w-5 h-5 text-slate-700 dark:text-slate-200" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path></svg>
+              </button>
+            </div>
+            <button id="exportBtn" class="px-3 py-2 rounded-md bg-gradient-to-br from-slate-800 to-slate-700 text-white text-sm shadow-sm hover:opacity-95 anim">Экспорт CSV</button>
+            <button id="settingsBtn" class="px-3 py-2 rounded-md border border-slate-200 dark:border-slate-700 text-sm anim">Настройки</button>
+          </div>
+        </div>
+      </header>
+
+      <main class="max-w-7xl mx-auto space-y-6">
+        <!-- Stats -->
+        <section class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+          <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm card-hover anim">
+            <div class="text-sm text-slate-500">Всего</div>
+            <div id="statTotal" class="text-2xl font-semibold mt-1 count-up">0</div>
+          </div>
+          <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm card-hover anim">
+            <div class="text-sm text-slate-500">Свободные</div>
+            <div id="statAvailable" class="text-2xl font-semibold mt-1 count-up">0</div>
+          </div>
+          <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm card-hover anim">
+            <div class="text-sm text-slate-500">Выданные</div>
+            <div id="statAssigned" class="text-2xl font-semibold mt-1 count-up">0</div>
+          </div>
+          <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm card-hover anim">
+            <div class="text-sm text-slate-500">Поломанные</div>
+            <div id="statBroken" class="text-2xl font-semibold mt-1 count-up">0</div>
+          </div>
+        </section>
+
+        <!-- Search and filters -->
+        <section class="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm anim">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div class="flex items-center gap-3 flex-1">
+              <div class="relative flex-1">
+                <input id="searchInput" class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-transparent focus-accent anim" placeholder="Поиск по serial, user или документу..." />
+                <div class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">🔎</div>
+              </div>
+
+              <select id="statusFilter" class="px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-transparent anim">
+                <option value="">Все статусы</option>
+                <option value="available">Свободные</option>
+                <option value="assigned">Выданные</option>
+                <option value="broken">Поломанные</option>
+              </select>
+
+              <button id="addBtn" class="px-4 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-sky-400 text-white anim">Добавить телефон</button>
+            </div>
+            <div class="text-sm text-slate-500">Результатов: <span id="resultCount" class="font-medium">0</span></div>
+          </div>
+        </section>
+
+        <!-- Table section -->
+        <section class="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm anim">
+          <div class="overflow-auto">
+            <table id="phonesTable" class="min-w-full table-auto">
+              <thead>
+                <tr id="tableHeader" class="text-sm text-slate-500">
+                  <!-- header cells inserted dynamically -->
+                </tr>
+              </thead>
+              <tbody id="tableBody" class="divide-y divide-slate-100 dark:divide-slate-700">
+                <!-- rows inserted dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+
+      <!-- Modals -->
+      <div id="modalRoot"></div>
+
+      <!-- Settings drawer -->
+      <div id="settingsPanel" class="fixed right-6 top-24 w-80 bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-lg hidden anim">
+        <h3 class="text-sm font-medium mb-3">Настройки таблицы</h3>
+        <p class="text-xs text-slate-500 mb-3">Перетащи столбцы, чтобы изменить порядок. Снимай галочки, чтобы скрыть столбцы.</p>
+        <div id="columnsList" class="space-y-2 max-h-64 overflow-auto">
+          <!-- column settings -->
+        </div>
+        <div class="mt-3 flex gap-2">
+          <button id="saveSettings" class="flex-1 px-3 py-2 rounded-lg bg-indigo-500 text-white">Сохранить</button>
+          <button id="resetSettings" class="px-3 py-2 rounded-lg border">Сброс</button>
+        </div>
+      </div>
+
+    </div>
+
+    <script>
+      // Sample data
+      const SAMPLE_DATA = [
+        { id: "PH-0001", model: "Yealink T46S", serial: "SNY-10001", user: "Ivan Petrov", location: "Moscow - Office 1", purchase_doc: "INV-2023-045", purchase_date: "2023-04-12", status: "assigned", notes: "Headset used" },
+        { id: "PH-0002", model: "Polycom VVX 450", serial: "SNP-20023", user: "", location: "Storage", purchase_doc: "INV-2024-012", purchase_date: "2024-01-05", status: "available", notes: "Spare unit" },
+        { id: "PH-0003", model: "Grandstream GXP2130", serial: "SNG-33455", user: "Olga Smirnova", location: "Saint Petersburg - Office 3", purchase_doc: "INV-2022-099", purchase_date: "2022-09-01", status: "assigned", notes: "Replaced handset" },
+        { id: "PH-0004", model: "Cisco 8845", serial: "SNC-44210", user: "", location: "Repair Center", purchase_doc: "INV-2021-002", purchase_date: "2021-02-18", status: "broken", notes: "Screen cracked" },
+        { id: "PH-0005", model: "Yealink T33", serial: "SNY-10078", user: "Dmitry Kozlov", location: "Moscow - Office 2", purchase_doc: "INV-2023-200", purchase_date: "2023-11-20", status: "assigned", notes: "" },
+        { id: "PH-0006", model: "Polycom VVX 250", serial: "SNP-20077", user: "", location: "Storage", purchase_doc: "INV-2020-300", purchase_date: "2020-07-10", status: "available", notes: "" },
+        { id: "PH-0007", model: "Grandstream GXP1625", serial: "SNG-11000", user: "Sergey Ivanov", location: "Moscow - Office 1", purchase_doc: "INV-2024-040", purchase_date: "2024-03-30", status: "assigned", notes: "" },
+        { id: "PH-0008", model: "Yealink T54W", serial: "SNY-10111", user: "", location: "Storage", purchase_doc: "INV-2024-078", purchase_date: "2024-06-21", status: "available", notes: "Wifi unit" },
+        { id: "PH-0009", model: "Cisco CP-7841", serial: "SNC-55233", user: "Anna Petrova", location: "Saint Petersburg - Office 1", purchase_doc: "INV-2022-150", purchase_date: "2022-12-02", status: "assigned", notes: "" },
+        { id: "PH-0010", model: "Snom D785", serial: "SND-00999", user: "", location: "Repair Center", purchase_doc: "INV-2020-990", purchase_date: "2020-10-10", status: "broken", notes: "Power issue" },
+        { id: "PH-0011", model: "Yealink T21P", serial: "SNY-11112", user: "Mikhail Orlov", location: "Moscow - Office 3", purchase_doc: "INV-2019-321", purchase_date: "2019-06-15", status: "assigned", notes: "" },
+        { id: "PH-0012", model: "Grandstream GXP1780", serial: "SNG-22221", user: "", location: "Storage", purchase_doc: "INV-2025-005", purchase_date: "2025-02-14", status: "available", notes: "New batch" }
+      ];
+
+      const DEFAULT_COLUMNS = [
+        { key: 'id', label: 'ID' },
+        { key: 'model', label: 'Model' },
+        { key: 'serial', label: 'Serial' },
+        { key: 'user', label: 'Assigned To' },
+        { key: 'location', label: 'Location' },
+        { key: 'purchase_doc', label: 'Purchase Doc' },
+        { key: 'purchase_date', label: 'Purchase Date' },
+        { key: 'status', label: 'Status' },
+        { key: 'notes', label: 'Notes' }
+      ];
+
+      // ---- State and persistence ----
+      const STORAGE_KEYS = { data: 'ips_phones_data_v1', cols: 'ips_phones_cols_v1', visible: 'ips_phones_visible_v1', theme: 'ips_theme_v1' };
+      let data = load(STORAGE_KEYS.data, SAMPLE_DATA.slice());
+      let columns = load(STORAGE_KEYS.cols, DEFAULT_COLUMNS.slice());
+      let visible = load(STORAGE_KEYS.visible, columns.map(c => c.key));
+      let draggingCol = null;
+
+      // DOM refs
+      const tableHeader = document.getElementById('tableHeader');
+      const tableBody = document.getElementById('tableBody');
+      const searchInput = document.getElementById('searchInput');
+      const statusFilter = document.getElementById('statusFilter');
+      const resultCount = document.getElementById('resultCount');
+      const statTotal = document.getElementById('statTotal');
+      const statAvailable = document.getElementById('statAvailable');
+      const statAssigned = document.getElementById('statAssigned');
+      const statBroken = document.getElementById('statBroken');
+      const settingsBtn = document.getElementById('settingsBtn');
+      const settingsPanel = document.getElementById('settingsPanel');
+      const columnsList = document.getElementById('columnsList');
+      const saveSettings = document.getElementById('saveSettings');
+      const resetSettings = document.getElementById('resetSettings');
+      const exportBtn = document.getElementById('exportBtn');
+      const themeToggle = document.getElementById('themeToggle');
+      const themeIcon = document.getElementById('themeIcon');
+      const addBtn = document.getElementById('addBtn');
+
+      // ---- Initialization ----
+      initTheme();
+      renderTableHeader();
+      renderTableBody();
+      renderStats();
+      renderColumnsSettings();
+      attachEvents();
+
+      // ----- Helpers -----
+      function load(key, fallback){ try{ const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; }catch(e){ return fallback; } }
+      function save(key, value){ try{ localStorage.setItem(key, JSON.stringify(value)); }catch(e){} }
+
+      function initTheme(){
+        const saved = load(STORAGE_KEYS.theme, null);
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const mode = saved === 'dark' || (saved === null && prefersDark) ? 'dark' : 'light';
+        setTheme(mode);
+
+        // react to system change unless user set preference
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e)=>{
+          const saved2 = load(STORAGE_KEYS.theme, null);
+          if(saved2 === null){ setTheme(e.matches ? 'dark':'light'); }
+        });
+      }
+
+      function setTheme(mode){
+        if(mode === 'dark') document.documentElement.classList.add('dark');
+        else document.documentElement.classList.remove('dark');
+        save(STORAGE_KEYS.theme, mode);
+        themeIcon.innerHTML = mode === 'dark' ? '<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>' : '<path d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.36 6.36l-1.42-1.42M7.05 6.64 5.64 5.22M18.36 5.64l-1.42 1.42M7.05 17.36 5.64 18.78"></path>';
+      }
+
+      themeToggle.addEventListener('click', ()=>{
+        const isDark = document.documentElement.classList.contains('dark');
+        setTheme(isDark? 'light':'dark');
+      });
+
+      function renderTableHeader(){
+        tableHeader.innerHTML = '';
+        columns.forEach((col, idx) =>{
+          const th = document.createElement('th');
+          th.className = 'px-4 py-3 text-left align-middle text-sm font-medium text-slate-500 dark:text-slate-300 anim';
+          th.dataset.key = col.key;
+          // container for drag
+          const inner = document.createElement('div');
+          inner.className = 'flex items-center gap-2';
+
+          const dragHandle = document.createElement('button');
+          dragHandle.className = 'w-6 h-6 rounded flex items-center justify-center text-slate-400 hover:text-slate-600 anim';
+          dragHandle.innerText = '≡';
+          dragHandle.title = 'Перетащить столбец';
+          dragHandle.draggable = false;
+          dragHandle.addEventListener('pointerdown', (e)=> startColDrag(e, idx));
+
+          const label = document.createElement('span');
+          label.innerText = col.label;
+
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.checked = visible.includes(col.key);
+          checkbox.className = 'ml-3';
+          checkbox.addEventListener('change', ()=>{
+            if(checkbox.checked){ if(!visible.includes(col.key)) visible.push(col.key); }
+            else visible = visible.filter(k=>k!==col.key);
+            save(STORAGE_KEYS.visible, visible); renderTableBody(); renderTableHeader(); renderColumnsSettings();
+          });
+
+          inner.appendChild(dragHandle);
+          inner.appendChild(label);
+          inner.appendChild(checkbox);
+          th.appendChild(inner);
+          tableHeader.appendChild(th);
+        });
+
+        // actions column
+        const thActions = document.createElement('th');
+        thActions.className = 'px-4 py-3 text-right text-sm text-slate-400';
+        thActions.innerText = 'Actions';
+        tableHeader.appendChild(thActions);
+      }
+
+      function renderTableBody(){
+        const q = searchInput.value.trim().toLowerCase();
+        const status = statusFilter.value;
+        const rows = data.filter(d=>{
+          if(status && d.status !== status) return false;
+          if(!q) return true;
+          return ['serial','user','purchase_doc','id','model'].some(k => (d[k]||'').toLowerCase().includes(q));
+        });
+        resultCount.innerText = rows.length;
+        tableBody.innerHTML = '';
+
+        rows.forEach(row =>{
+          const tr = document.createElement('tr');
+          tr.className = 'hover:bg-slate-50 dark:hover:bg-slate-700 anim';
+
+          columns.forEach(col=>{
+            if(!visible.includes(col.key)) return;
+            const td = document.createElement('td');
+            td.className = 'px-4 py-3 align-middle text-sm text-slate-700 dark:text-slate-200';
+            if(col.key === 'status'){
+              const span = document.createElement('span');
+              span.className = 'inline-flex items-center px-2 py-1 rounded-full text-xs font-medium';
+              if(row.status === 'available') span.classList.add('bg-green-100','text-green-700');
+              else if(row.status === 'assigned') span.classList.add('bg-yellow-100','text-yellow-800');
+              else span.classList.add('bg-red-100','text-red-700');
+              span.innerText = row.status === 'available' ? 'Свободен' : row.status === 'assigned' ? 'Выдан' : 'Поломан';
+              td.appendChild(span);
+            } else {
+              td.innerText = row[col.key] ?? '';
+            }
+            tr.appendChild(td);
+          });
+
+          // actions
+          const tdAct = document.createElement('td');
+          tdAct.className = 'px-4 py-3 text-right';
+          const edit = document.createElement('button'); edit.className = 'px-3 py-1 mr-2 rounded-md border text-sm anim'; edit.innerText = 'Edit';
+          edit.addEventListener('click', ()=> openEditModal(row));
+          const del = document.createElement('button'); del.className = 'px-3 py-1 rounded-md border text-sm text-red-600 anim'; del.innerText = 'Delete';
+          del.addEventListener('click', ()=>{ if(confirm('Удалить телефон '+row.id+'?')){ data = data.filter(d=>d.id!==row.id); save(STORAGE_KEYS.data, data); renderTableBody(); renderStats(); }});
+          tdAct.appendChild(edit); tdAct.appendChild(del);
+          tr.appendChild(tdAct);
+
+          tableBody.appendChild(tr);
+        });
+
+        renderStats();
+      }
+
+      function renderStats(){
+        const total = data.length;
+        const available = data.filter(d=>d.status==='available').length;
+        const assigned = data.filter(d=>d.status==='assigned').length;
+        const broken = data.filter(d=>d.status==='broken').length;
+        animateNumber(statTotal, total);
+        animateNumber(statAvailable, available);
+        animateNumber(statAssigned, assigned);
+        animateNumber(statBroken, broken);
+      }
+
+      function animateNumber(el, to){
+        // simple animation tween
+        const from = parseInt(el.dataset.value || '0', 10);
+        const dur = 500; const start = performance.now();
+        function step(now){
+          const t = Math.min(1, (now-start)/dur);
+          const val = Math.round(from + (to-from)*t);
+          el.innerText = val;
+          if(t<1) requestAnimationFrame(step);
+          else el.dataset.value = to;
+        }
+        requestAnimationFrame(step);
+      }
+
+      // ---- Column drag-and-drop ----
+      let dragState = null;
+      function startColDrag(e, idx){
+        e.preventDefault();
+        const ths = Array.from(tableHeader.children).filter(n=>n.dataset && n.dataset.key);
+        const th = ths[idx];
+        dragState = { startX: e.clientX, idx, th, placeholder: th.cloneNode(true) };
+        dragState.placeholder.classList.add('col-placeholder');
+        th.classList.add('dragging');
+        th.style.width = th.offsetWidth+'px';
+        document.body.style.cursor = 'grabbing';
+
+        const onMove = (ev)=>{
+          const dx = ev.clientX - dragState.startX;
+          th.style.transform = `translateX(${dx}px)`;
+          // find insert position
+          const headers = ths.filter(h=>h!==th);
+          let insertBefore = null;
+          for(const h of headers){
+            const rect = h.getBoundingClientRect();
+            if(ev.clientX < rect.left + rect.width/2){ insertBefore = h; break; }
+          }
+          // remove any existing placeholder
+          th.parentNode.querySelectorAll('.col-placeholder').forEach(n=>n.remove());
+          if(insertBefore){ th.parentNode.insertBefore(dragState.placeholder, insertBefore); }
+          else th.parentNode.appendChild(dragState.placeholder);
+        };
+        const onUp = (ev)=>{
+          // determine new index
+          const headers = Array.from(tableHeader.children).filter(n=>n.dataset && n.dataset.key);
+          const placeholder = tableHeader.querySelector('.col-placeholder');
+          let newIdx = headers.length; // default append
+          if(placeholder){
+            newIdx = Array.from(tableHeader.children).indexOf(placeholder);
+            placeholder.remove();
+          }
+          // remove th and insert at newIdx
+          const moving = columns.splice(idx,1)[0];
+          columns.splice(newIdx,0,moving);
+          // cleanup
+          th.classList.remove('dragging'); th.style.transform=''; th.style.width='';
+          document.body.style.cursor='';
+          dragState = null;
+          save(STORAGE_KEYS.cols, columns);
+          renderTableHeader(); renderTableBody(); renderColumnsSettings();
+          window.removeEventListener('pointermove', onMove); window.removeEventListener('pointerup', onUp);
+        };
+        window.addEventListener('pointermove', onMove);
+        window.addEventListener('pointerup', onUp);
+      }
+
+      // ---- Settings panel ----
+      function renderColumnsSettings(){
+        columnsList.innerHTML = '';
+        columns.forEach((c, idx)=>{
+          const row = document.createElement('div'); row.className='flex items-center gap-2 p-2 rounded-lg border border-transparent hover:border-slate-200 dark:hover:border-slate-700 anim';
+          row.draggable = true; row.dataset.idx = idx;
+          const grip = document.createElement('div'); grip.className='w-7 h-7 rounded flex items-center justify-center text-slate-400'; grip.innerText='≡';
+          const label = document.createElement('div'); label.className='flex-1 text-sm'; label.innerText = c.label;
+          const chk = document.createElement('input'); chk.type='checkbox'; chk.checked = visible.includes(c.key);
+          chk.addEventListener('change', ()=>{ if(chk.checked){ if(!visible.includes(c.key)) visible.push(c.key);} else visible=visible.filter(k=>k!==c.key); save(STORAGE_KEYS.visible,visible); renderTableBody(); renderTableHeader(); });
+          row.appendChild(grip); row.appendChild(label); row.appendChild(chk);
+
+          // drag within settings list
+          row.addEventListener('dragstart', (e)=>{ e.dataTransfer.setData('text/plain', idx); row.classList.add('dragging'); });
+          row.addEventListener('dragend', ()=>{ row.classList.remove('dragging'); });
+          row.addEventListener('dragover', (e)=>{ e.preventDefault(); row.classList.add('col-placeholder'); });
+          row.addEventListener('dragleave', ()=>{ row.classList.remove('col-placeholder'); });
+          row.addEventListener('drop', (e)=>{ e.preventDefault(); const from = parseInt(e.dataTransfer.getData('text/plain'),10); const to = parseInt(row.dataset.idx,10); const item = columns.splice(from,1)[0]; columns.splice(to,0,item); save(STORAGE_KEYS.cols,columns); renderTableHeader(); renderTableBody(); renderColumnsSettings(); });
+
+          columnsList.appendChild(row);
+        });
+      }
+
+      settingsBtn.addEventListener('click', ()=>{ settingsPanel.classList.toggle('hidden'); });
+      saveSettings.addEventListener('click', ()=>{ save(STORAGE_KEYS.cols, columns); save(STORAGE_KEYS.visible, visible); settingsPanel.classList.add('hidden'); renderTableHeader(); renderTableBody(); });
+      resetSettings.addEventListener('click', ()=>{ if(confirm('Сбросить настройки таблицы и данные к примерам?')){ columns = DEFAULT_COLUMNS.slice(); visible = columns.map(c=>c.key); data = SAMPLE_DATA.slice(); save(STORAGE_KEYS.cols, columns); save(STORAGE_KEYS.visible, visible); save(STORAGE_KEYS.data, data); renderTableHeader(); renderTableBody(); renderColumnsSettings(); } });
+
+      // ---- Export CSV ----
+      exportBtn.addEventListener('click', ()=>{
+        const visibleCols = columns.filter(c=>visible.includes(c.key));
+        const header = visibleCols.map(c=>`"${c.label}"`).join(',');
+        const rows = data.map(r=> visibleCols.map(c=>`"${(r[c.key]||'').toString().replace(/"/g,'""')}"`).join(','));
+        const csv = [header, ...rows].join('\n');
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = 'phones_export.csv'; a.click(); URL.revokeObjectURL(url);
+      });
+
+      // ---- Add phone ----
+      addBtn.addEventListener('click', ()=>{
+        openEditModal({ id: 'PH-'+String(Math.floor(Math.random()*9000)+1000), model:'', serial:'', user:'', location:'', purchase_doc:'', purchase_date:'', status:'available', notes:'' });
+      });
+
+      // ---- Edit modal ----
+      function openEditModal(row){
+        const modalRoot = document.getElementById('modalRoot');
+        modalRoot.innerHTML = '';
+        const overlay = document.createElement('div'); overlay.className = 'fixed inset-0 bg-black/40 flex items-center justify-center z-50';
+        const dialog = document.createElement('div'); dialog.className = 'w-full max-w-2xl bg-white dark:bg-slate-800 rounded-2xl p-6 anim modal-enter modal-active';
+        const title = document.createElement('h3'); title.className='text-lg font-medium'; title.innerText = 'Edit — '+row.id;
+        const form = document.createElement('div'); form.className='mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3';
+        const fields = ['model','serial','user','location','purchase_doc','purchase_date','status','notes'];
+        const inputs = {};
+        fields.forEach(f=>{
+          const wrap = document.createElement('label'); wrap.className='block';
+          const label = document.createElement('div'); label.className='text-xs text-slate-500'; label.innerText = f;
+          let input;
+          if(f==='notes'){ input = document.createElement('textarea'); input.className='w-full p-2 rounded border dark:border-slate-700 bg-transparent'; }
+          else if(f==='status'){ input = document.createElement('select'); input.className='w-full p-2 rounded border dark:border-slate-700 bg-transparent'; ['available','assigned','broken'].forEach(opt=>{ const o = document.createElement('option'); o.value=opt; o.innerText=opt; input.appendChild(o); }); }
+          else { input = document.createElement('input'); input.className='w-full p-2 rounded border dark:border-slate-700 bg-transparent'; }
+          input.value = row[f] || '';
+          inputs[f] = input;
+          wrap.appendChild(label); wrap.appendChild(input); form.appendChild(wrap);
+        });
+
+        const actions = document.createElement('div'); actions.className='mt-4 flex justify-end gap-2';
+        const cancel = document.createElement('button'); cancel.className='px-4 py-2 border rounded'; cancel.innerText='Cancel'; cancel.addEventListener('click', ()=>{ modalRoot.innerHTML=''; });
+        const saveBtn = document.createElement('button'); saveBtn.className='px-4 py-2 bg-indigo-500 text-white rounded'; saveBtn.innerText='Save';
+        saveBtn.addEventListener('click', ()=>{
+          const updated = { ...row };
+          fields.forEach(f=> updated[f] = inputs[f].value);
+          // if id exists update else push
+          const idx = data.findIndex(d=>d.id === updated.id);
+          if(idx>=0) data[idx] = updated; else data.unshift(updated);
+          save(STORAGE_KEYS.data, data);
+          modalRoot.innerHTML=''; renderTableBody();
+        });
+        actions.appendChild(cancel); actions.appendChild(saveBtn);
+
+        dialog.appendChild(title); dialog.appendChild(form); dialog.appendChild(actions);
+        overlay.appendChild(dialog); modalRoot.appendChild(overlay);
+      }
+
+      function openEditModalSimple(row){ openEditModal(row); }
+
+      function attachEvents(){
+        searchInput.addEventListener('input', ()=> renderTableBody());
+        statusFilter.addEventListener('change', ()=> renderTableBody());
+
+        // close settings on outside click
+        document.addEventListener('click', (e)=>{ if(!settingsPanel.contains(e.target) && !settingsBtn.contains(e.target)){ settingsPanel.classList.add('hidden'); } });
+      }
+
+    </script>
+  </body>
+</html>
