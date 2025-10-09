@@ -1,0 +1,495 @@
+import React, { useEffect, useMemo, useState } from "react";
+
+// IP Phones Inventory — Single-file React component using Tailwind CSS
+// Features implemented:
+// - Responsive dashboard with analytics cards
+// - Search (serial, user, purchase doc), filters (status)
+// - Editable table with inline edit modal
+// - Column visibility toggles + reorder (up/down) saved to localStorage
+// - Sample data included
+// - CSV export
+// Usage: drop into a React app, ensure Tailwind CSS is available.
+
+const SAMPLE_DATA = [
+  {
+    id: "PH-0001",
+    model: "Yealink T46S",
+    serial: "SNY-10001",
+    user: "Ivan Petrov",
+    location: "Moscow - Office 1",
+    purchase_doc: "INV-2023-045",
+    purchase_date: "2023-04-12",
+    status: "assigned",
+    notes: "Headset used",
+  },
+  {
+    id: "PH-0002",
+    model: "Polycom VVX 450",
+    serial: "SNP-20023",
+    user: "",
+    location: "Storage",
+    purchase_doc: "INV-2024-012",
+    purchase_date: "2024-01-05",
+    status: "available",
+    notes: "Spare unit",
+  },
+  {
+    id: "PH-0003",
+    model: "Grandstream GXP2130",
+    serial: "SNG-33455",
+    user: "Olga Smirnova",
+    location: "Saint Petersburg - Office 3",
+    purchase_doc: "INV-2022-099",
+    purchase_date: "2022-09-01",
+    status: "assigned",
+    notes: "Replaced handset",
+  },
+  {
+    id: "PH-0004",
+    model: "Cisco 8845",
+    serial: "SNC-44210",
+    user: "",
+    location: "Repair Center",
+    purchase_doc: "INV-2021-002",
+    purchase_date: "2021-02-18",
+    status: "broken",
+    notes: "Screen cracked",
+  },
+  {
+    id: "PH-0005",
+    model: "Yealink T33",
+    serial: "SNY-10078",
+    user: "Dmitry Kozlov",
+    location: "Moscow - Office 2",
+    purchase_doc: "INV-2023-200",
+    purchase_date: "2023-11-20",
+    status: "assigned",
+    notes: "",
+  },
+  {
+    id: "PH-0006",
+    model: "Polycom VVX 250",
+    serial: "SNP-20077",
+    user: "",
+    location: "Storage",
+    purchase_doc: "INV-2020-300",
+    purchase_date: "2020-07-10",
+    status: "available",
+    notes: "",
+  },
+  {
+    id: "PH-0007",
+    model: "Grandstream GXP1625",
+    serial: "SNG-11000",
+    user: "Sergey Ivanov",
+    location: "Moscow - Office 1",
+    purchase_doc: "INV-2024-040",
+    purchase_date: "2024-03-30",
+    status: "assigned",
+    notes: "",
+  },
+  {
+    id: "PH-0008",
+    model: "Yealink T54W",
+    serial: "SNY-10111",
+    user: "",
+    location: "Storage",
+    purchase_doc: "INV-2024-078",
+    purchase_date: "2024-06-21",
+    status: "available",
+    notes: "Wifi unit",
+  },
+  {
+    id: "PH-0009",
+    model: "Cisco CP-7841",
+    serial: "SNC-55233",
+    user: "Anna Petrova",
+    location: "Saint Petersburg - Office 1",
+    purchase_doc: "INV-2022-150",
+    purchase_date: "2022-12-02",
+    status: "assigned",
+    notes: "",
+  },
+  {
+    id: "PH-0010",
+    model: "Snom D785",
+    serial: "SND-00999",
+    user: "",
+    location: "Repair Center",
+    purchase_doc: "INV-2020-990",
+    purchase_date: "2020-10-10",
+    status: "broken",
+    notes: "Power issue",
+  },
+  {
+    id: "PH-0011",
+    model: "Yealink T21P",
+    serial: "SNY-11112",
+    user: "Mikhail Orlov",
+    location: "Moscow - Office 3",
+    purchase_doc: "INV-2019-321",
+    purchase_date: "2019-06-15",
+    status: "assigned",
+    notes: "",
+  },
+  {
+    id: "PH-0012",
+    model: "Grandstream GXP1780",
+    serial: "SNG-22221",
+    user: "",
+    location: "Storage",
+    purchase_doc: "INV-2025-005",
+    purchase_date: "2025-02-14",
+    status: "available",
+    notes: "New batch",
+  },
+];
+
+const DEFAULT_COLUMNS = [
+  { key: "id", label: "ID" },
+  { key: "model", label: "Model" },
+  { key: "serial", label: "Serial" },
+  { key: "user", label: "Assigned To" },
+  { key: "location", label: "Location" },
+  { key: "purchase_doc", label: "Purchase Doc" },
+  { key: "purchase_date", label: "Purchase Date" },
+  { key: "status", label: "Status" },
+  { key: "notes", label: "Notes" },
+];
+
+function saveLS(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch (e) {
+    // noop
+  }
+}
+function loadLS(key, fallback) {
+  try {
+    const v = localStorage.getItem(key);
+    return v ? JSON.parse(v) : fallback;
+  } catch (e) {
+    return fallback;
+  }
+}
+
+export default function IPPhonesInventory() {
+  const [data, setData] = useState(() => loadLS("phones_data", SAMPLE_DATA));
+  const [columns, setColumns] = useState(() => loadLS("phones_columns", DEFAULT_COLUMNS));
+  const [visibleKeys, setVisibleKeys] = useState(() => loadLS("phones_visible", DEFAULT_COLUMNS.map((c) => c.key)));
+
+  const [query, setQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState("");
+  const [selected, setSelected] = useState(null);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+
+  useEffect(() => saveLS("phones_data", data), [data]);
+  useEffect(() => saveLS("phones_columns", columns), [columns]);
+  useEffect(() => saveLS("phones_visible", visibleKeys), [visibleKeys]);
+
+  const stats = useMemo(() => {
+    const total = data.length;
+    const available = data.filter((d) => d.status === "available").length;
+    const assigned = data.filter((d) => d.status === "assigned").length;
+    const broken = data.filter((d) => d.status === "broken").length;
+    return { total, available, assigned, broken };
+  }, [data]);
+
+  function moveColumn(idx, dir) {
+    const next = [...columns];
+    const newIdx = idx + dir;
+    if (newIdx < 0 || newIdx >= next.length) return;
+    const [item] = next.splice(idx, 1);
+    next.splice(newIdx, 0, item);
+    setColumns(next);
+  }
+
+  function toggleVisible(key) {
+    if (visibleKeys.includes(key)) setVisibleKeys(visibleKeys.filter((k) => k !== key));
+    else setVisibleKeys([...visibleKeys, key]);
+  }
+
+  const filtered = data.filter((d) => {
+    const q = query.trim().toLowerCase();
+    if (q) {
+      const match = [d.serial, d.user, d.purchase_doc, d.id]
+        .filter(Boolean)
+        .some((f) => f.toLowerCase().includes(q));
+      if (!match) return false;
+    }
+    if (statusFilter) return d.status === statusFilter;
+    return true;
+  });
+
+  function openEdit(row) {
+    setSelected(row);
+  }
+  function saveEdit(updated) {
+    setData((cur) => cur.map((r) => (r.id === updated.id ? updated : r)));
+    setSelected(null);
+  }
+
+  function exportCSV() {
+    const keys = columns.filter((c) => visibleKeys.includes(c.key)).map((c) => c.key);
+    const header = columns.filter((c) => visibleKeys.includes(c.key)).map((c) => `"${c.label}"`).join(",");
+    const rows = filtered.map((r) => keys.map((k) => `"${(r[k] ?? "").toString().replace(/"/g, '""')}"`).join(","));
+    const csv = [header, ...rows].join("\n");
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "phones_export.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function resetToSample() {
+    setData(SAMPLE_DATA);
+    setColumns(DEFAULT_COLUMNS);
+    setVisibleKeys(DEFAULT_COLUMNS.map((c) => c.key));
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50 p-4 sm:p-6 lg:p-8">
+      <header className="max-w-7xl mx-auto mb-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-semibold text-gray-900">IP Phones Inventory</h1>
+            <p className="mt-1 text-sm text-gray-600">Учет IP-телефонов — быстрый поиск, аналитика и кастомизация полей.</p>
+          </div>
+          <div className="flex gap-2">
+            <button
+              onClick={() => setIsSettingsOpen((s) => !s)}
+              className="px-3 py-2 bg-white border rounded shadow-sm text-sm"
+            >
+              Настройки таблицы
+            </button>
+            <button onClick={exportCSV} className="px-3 py-2 bg-blue-600 text-white rounded shadow-sm text-sm">
+              Экспорт CSV
+            </button>
+            <button onClick={resetToSample} className="px-3 py-2 bg-gray-200 rounded text-sm">
+              Сброс
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <main className="max-w-7xl mx-auto space-y-6">
+        <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <Card title="Total" value={stats.total} />
+          <Card title="Available" value={stats.available} tone="green" />
+          <Card title="Broken" value={stats.broken} tone="red" />
+        </section>
+
+        <section className="bg-white shadow rounded p-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div className="flex gap-2 w-full sm:w-auto">
+              <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Поиск по serial, user или документу"
+                className="flex-1 px-3 py-2 border rounded"
+              />
+              <select
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value)}
+                className="px-3 py-2 border rounded"
+              >
+                <option value="">Все статусы</option>
+                <option value="available">Свободные</option>
+                <option value="assigned">Выданные</option>
+                <option value="broken">Поломанные</option>
+              </select>
+            </div>
+
+            <div className="text-sm text-gray-600">Результатов: <strong>{filtered.length}</strong></div>
+          </div>
+
+          <div className="mt-4 overflow-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  {columns.map((col) =>
+                    visibleKeys.includes(col.key) ? (
+                      <th key={col.key} className="px-3 py-2 text-left text-xs font-medium text-gray-500">
+                        {col.label}
+                      </th>
+                    ) : null
+                  )}
+                  <th className="px-3 py-2 text-right text-xs text-gray-500">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-100">
+                {filtered.map((row) => (
+                  <tr key={row.id} className="hover:bg-gray-50">
+                    {columns.map((col) =>
+                      visibleKeys.includes(col.key) ? (
+                        <td key={col.key} className="px-3 py-2 text-sm text-gray-700">
+                          {col.key === "status" ? (
+                            <StatusBadge status={row.status} />
+                          ) : col.key === "purchase_date" ? (
+                            <span>{row[col.key]}</span>
+                          ) : (
+                            <span>{row[col.key]}</span>
+                          )}
+                        </td>
+                      ) : null
+                    )}
+                    <td className="px-3 py-2 text-right">
+                      <div className="flex justify-end gap-2">
+                        <button
+                          onClick={() => openEdit(row)}
+                          className="px-2 py-1 border rounded text-sm"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => setData((cur) => cur.filter((r) => r.id !== row.id))}
+                          className="px-2 py-1 border rounded text-sm text-red-600"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {isSettingsOpen && (
+            <div className="mt-4 border-t pt-4">
+              <h3 className="text-sm font-medium mb-2">Настройки столбцов</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  {columns.map((c, idx) => (
+                    <div key={c.key} className="flex items-center gap-2 py-1">
+                      <button
+                        title="Move up"
+                        onClick={() => moveColumn(idx, -1)}
+                        className="px-2 py-1 border rounded"
+                      >
+                        ↑
+                      </button>
+                      <button
+                        title="Move down"
+                        onClick={() => moveColumn(idx, 1)}
+                        className="px-2 py-1 border rounded"
+                      >
+                        ↓
+                      </button>
+                      <label className="flex items-center gap-2 ml-2">
+                        <input
+                          type="checkbox"
+                          checked={visibleKeys.includes(c.key)}
+                          onChange={() => toggleVisible(c.key)}
+                        />
+                        <span className="text-sm">{c.label}</span>
+                      </label>
+                    </div>
+                  ))}
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500">Порядок столбцов и видимость сохраняются в браузере. Можно расширить сохранение на сервер для общих настроек команды.</p>
+                </div>
+              </div>
+            </div>
+          )}
+        </section>
+      </main>
+
+      {selected && (
+        <EditModal row={selected} onClose={() => setSelected(null)} onSave={saveEdit} />
+      )}
+    </div>
+  );
+}
+
+function Card({ title, value, tone = "blue" }) {
+  const toneMap = {
+    blue: "bg-blue-50 text-blue-700",
+    green: "bg-green-50 text-green-700",
+    red: "bg-red-50 text-red-700",
+  };
+  return (
+    <div className="rounded-lg p-4 bg-white shadow">
+      <div className="flex items-center justify-between">
+        <div>
+          <div className="text-sm font-medium text-gray-500">{title}</div>
+          <div className={`mt-1 text-2xl font-semibold ${toneMap[tone] || toneMap.blue}`}>{value}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function StatusBadge({ status }) {
+  const map = {
+    available: "Свободен",
+    assigned: "Выдан",
+    broken: "Поломан",
+  };
+  const cls = {
+    available: "bg-green-100 text-green-700",
+    assigned: "bg-yellow-100 text-yellow-800",
+    broken: "bg-red-100 text-red-700",
+  };
+  return <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${cls[status]}`}>{map[status]}</span>;
+}
+
+function EditModal({ row, onClose, onSave }) {
+  const [form, setForm] = useState({ ...row });
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+      <div className="w-full max-w-2xl bg-white rounded shadow-lg p-6">
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg font-medium">Edit — {row.id}</h3>
+          <button onClick={onClose} className="px-2 py-1 rounded border">Close</button>
+        </div>
+        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <label className="block">
+            <div className="text-xs text-gray-600">Model</div>
+            <input value={form.model} onChange={(e) => setForm({ ...form, model: e.target.value })} className="w-full px-3 py-2 border rounded" />
+          </label>
+          <label className="block">
+            <div className="text-xs text-gray-600">Serial</div>
+            <input value={form.serial} onChange={(e) => setForm({ ...form, serial: e.target.value })} className="w-full px-3 py-2 border rounded" />
+          </label>
+          <label className="block">
+            <div className="text-xs text-gray-600">Assigned To</div>
+            <input value={form.user} onChange={(e) => setForm({ ...form, user: e.target.value })} className="w-full px-3 py-2 border rounded" />
+          </label>
+          <label className="block">
+            <div className="text-xs text-gray-600">Location</div>
+            <input value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} className="w-full px-3 py-2 border rounded" />
+          </label>
+          <label className="block">
+            <div className="text-xs text-gray-600">Purchase Doc</div>
+            <input value={form.purchase_doc} onChange={(e) => setForm({ ...form, purchase_doc: e.target.value })} className="w-full px-3 py-2 border rounded" />
+          </label>
+          <label className="block">
+            <div className="text-xs text-gray-600">Status</div>
+            <select value={form.status} onChange={(e) => setForm({ ...form, status: e.target.value })} className="w-full px-3 py-2 border rounded">
+              <option value="available">available</option>
+              <option value="assigned">assigned</option>
+              <option value="broken">broken</option>
+            </select>
+          </label>
+          <label className="block sm:col-span-2">
+            <div className="text-xs text-gray-600">Notes</div>
+            <textarea value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} className="w-full px-3 py-2 border rounded" />
+          </label>
+        </div>
+        <div className="mt-4 flex justify-end gap-2">
+          <button onClick={onClose} className="px-4 py-2 border rounded">Cancel</button>
+          <button
+            onClick={() => onSave(form)}
+            className="px-4 py-2 bg-blue-600 text-white rounded"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
