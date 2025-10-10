@@ -879,3 +879,62 @@ function getStatusBadge(status) {
       return `<span class="bg-gray-400 text-white px-2 py-1 rounded text-xs font-bold">Неизвестно</span>`
   }
 }
+
+// ============================================
+// ADD PHONE FUNCTIONALITY
+// ============================================
+
+document.getElementById("add-phone-btn").addEventListener("click", () => {
+  const newId = Math.max(...phones.map((p) => p.id), 0) + 1
+  const newPhone = {
+    id: newId,
+    model: "",
+    mac: "",
+    ip: "",
+    status: "free",
+    user: "",
+    department: "",
+    notes: "",
+  }
+
+  phones.push(newPhone)
+  saveData()
+  updateStatistics()
+  renderTable(getFilteredPhones())
+  renderMobileCards(getFilteredPhones())
+  openEditModal(newId)
+  logActivity("добавлен новый телефон", "Новый телефон")
+})
+
+// ============================================
+// CSV EXPORT
+// ============================================
+
+document.getElementById("export-csv-btn").addEventListener("click", () => {
+  const visibleColumns = columns.filter((col) => col.visible)
+  const headers = visibleColumns.map((col) => col.label).join(",")
+  const rows = phones
+    .map((phone) =>
+      visibleColumns
+        .map((col) => {
+          const value = phone[col.id] || ""
+          return `"${value}"`
+        })
+        .join(","),
+    )
+    .join("\n")
+
+  const csv = `${headers}\n${rows}`
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" })
+  const link = document.createElement("a")
+  const url = URL.createObjectURL(blob)
+
+  link.setAttribute("href", url)
+  link.setAttribute("download", `skuffcall_phones_${new Date().toISOString().split("T")[0]}.csv`)
+  link.style.visibility = "hidden"
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+
+  showNotification("CSV файл экспортирован")
+})
