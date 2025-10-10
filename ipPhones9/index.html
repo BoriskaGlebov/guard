@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkuffCall | Не работает - да и пох!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style type="text/tailwindcss">
+        @layer base {
+            * {
+                @apply transition-colors duration-200;
+            }
+            
+            body {
+                font-family: 'Share Tech Mono', monospace;
+            }
+            
+            h1, h2, h3, h4, h5, h6, .heading {
+                font-family: 'Orbitron', sans-serif;
+            }
+        }
+        
+        @layer components {
+            /* Theme-aware styling with data-theme attribute */
+            
+            /* Dark theme (default) */
+            body[data-theme="dark"] {
+                @apply bg-gradient-to-br from-[#0a0a0f] via-[#0f172a] to-[#1a1a2e] text-slate-100;
+            }
+            
+            /* Light theme */
+            body[data-theme="light"] {
+                @apply bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 text-slate-900;
+            }
+            
+            /* Glass effects */
+            body[data-theme="dark"] .glass {
+                background: rgba(255, 255, 255, 0.03);
+                backdrop-filter: blur(8px);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+            }
+            
+            body[data-theme="light"] .glass {
+                background: rgba(255, 255, 255, 0.8);
+                backdrop-filter: blur(8px);
+                border: 1px solid rgba(0, 0, 0, 0.1);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+            
+            /* Text colors */
+            body[data-theme="dark"] .text-primary {
+                @apply text-cyan-400;
+            }
+            
+            body[data-theme="light"] .text-primary {
+                @apply text-blue-600;
+            }
+            
+            body[data-theme="dark"] .text-secondary {
+                @apply text-cyan-100;
+            }
+            
+            body[data-theme="light"] .text-secondary {
+                @apply text-slate-700;
+            }
+            
+            body[data-theme="dark"] .text-muted {
+                @apply text-cyan-400/50;
+            }
+            
+            body[data-theme="light"] .text-muted {
+                @apply text-slate-500;
+            }
+            
+            /* Border colors */
+            body[data-theme="dark"] .border-primary {
+                @apply border-cyan-400/30;
+            }
+            
+            body[data-theme="light"] .border-primary {
+                @apply border-blue-300;
+            }
+            
+            /* Input fields */
+            body[data-theme="dark"] .input-field {
+                @apply bg-black/30 border-cyan-400/30 text-cyan-100 placeholder-cyan-400/50;
+            }
+            
+            body[data-theme="dark"] .input-field:focus {
+                @apply border-cyan-400;
+            }
+            
+            body[data-theme="light"] .input-field {
+                @apply bg-white border-slate-300 text-slate-900 placeholder-slate-400;
+            }
+            
+            body[data-theme="light"] .input-field:focus {
+                @apply border-blue-500;
+            }
+            
+            /* Buttons */
+            body[data-theme="dark"] .btn-primary {
+                @apply bg-gradient-to-r from-cyan-500 to-magenta-500 hover:from-cyan-400 hover:to-magenta-400 text-white;
+            }
+            
+            body[data-theme="light"] .btn-primary {
+                @apply bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white;
+            }
+            
+            body[data-theme="dark"] .btn-secondary {
+                @apply border-emerald-400 text-emerald-400 hover:bg-emerald-400/10;
+            }
+            
+            body[data-theme="light"] .btn-secondary {
+                @apply border-emerald-600 text-emerald-600 hover:bg-emerald-50;
+            }
+            
+            /* Table */
+            body[data-theme="dark"] .table-header {
+                @apply bg-black/40 border-cyan-400/50 text-cyan-400;
+            }
+            
+            body[data-theme="light"] .table-header {
+                @apply bg-slate-100 border-slate-300 text-slate-700;
+            }
+            
+            body[data-theme="dark"] .table-row {
+                @apply border-cyan-400/10 hover:bg-cyan-400/5;
+            }
+            
+            body[data-theme="light"] .table-row {
+                @apply border-slate-200 hover:bg-blue-50;
+            }
+            
+            body[data-theme="dark"] .table-cell {
+                @apply text-cyan-100;
+            }
+            
+            body[data-theme="light"] .table-cell {
+                @apply text-slate-700;
+            }
+            
+            /* Minimal neon effects - only in dark mode */
+            body[data-theme="dark"] .neon-text {
+                text-shadow: 0 0 1px currentColor;
+            }
+            
+            body[data-theme="light"] .neon-text {
+                text-shadow: none;
+            }
+            
+            @keyframes fadeInScale {
+                from {
+                    opacity: 0;
+                    transform: scale(0.98);
+                }
+                to {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+            
+            .fade-in {
+                animation: fadeInScale 0.2s ease-out;
+            }
+            
+            .hover-lift {
+                @apply transition-all duration-200;
+            }
+            
+            .hover-lift:hover {
+                transform: translateY(-2px);
+            }
+            
+            .dragging {
+                opacity: 0.5;
+                cursor: grabbing;
+            }
+            
+            body[data-theme="dark"] .drag-over {
+                border-left: 2px solid #00ffff !important;
+            }
+            
+            body[data-theme="light"] .drag-over {
+                border-left: 2px solid #3b82f6 !important;
+            }
+            
+            ::-webkit-scrollbar {
+                width: 8px;
+                height: 8px;
+            }
+            
+            body[data-theme="dark"] ::-webkit-scrollbar-track {
+                background: rgba(255, 255, 255, 0.05);
+            }
+            
+            body[data-theme="light"] ::-webkit-scrollbar-track {
+                background: rgba(0, 0, 0, 0.05);
+            }
+            
+            body[data-theme="dark"] ::-webkit-scrollbar-thumb {
+                background: #00ffff;
+                border-radius: 4px;
+            }
+            
+            body[data-theme="light"] ::-webkit-scrollbar-thumb {
+                background: #3b82f6;
+                border-radius: 4px;
+            }
+            
+            .modal-backdrop {
+                background: rgba(0, 0, 0, 0.8);
+                backdrop-filter: blur(5px);
+            }
+            
+            .sort-indicator {
+                display: inline-block;
+                margin-left: 0.25rem;
+                font-size: 0.75rem;
+                opacity: 0.4;
+            }
+            
+            .sort-indicator.active {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body data-theme="dark" class="min-h-screen">
+     Reduced cursor glow and made it theme-aware 
+    <div id="cursor-glow" class="fixed w-96 h-96 rounded-full pointer-events-none z-50 opacity-[0.01] blur-3xl transition-all duration-300 hidden" style="background: radial-gradient(circle, #00ffff 0%, transparent 70%); transform: translate(-50%, -50%);"></div>
+    
+    <div class="container mx-auto px-4 py-6 md:py-8 relative z-10">
+        <header class="mb-6 md:mb-8 fade-in">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6">
+                <div class="flex flex-col items-center md:items-start gap-3">
+                    <img id="brand-logo" src="/public/skuffcall-logo-neon.png" alt="SkuffCall" class="w-32 h-32 md:w-40 md:h-40 object-contain">
+                    <p class="text-base md:text-lg text-orange-500 font-bold tracking-wide text-center md:text-left">
+                        Не работает - да и пох!
+                    </p>
+                </div>
+                
+                 Updated button styling to use theme-aware classes 
+                <button id="theme-toggle" class="glass hover-lift px-4 md:px-6 py-2 md:py-3 rounded-lg border border-primary text-primary font-bold">
+                    <span id="theme-name">НЕОН ТЬМЫ</span>
+                </button>
+            </div>
+        </header>
+        
+         Updated statistics cards with theme-aware colors 
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-4 md:mb-6">
+            <div class="glass rounded-xl p-4 md:p-6 border border-primary hover-lift fade-in">
+                <div class="flex items-center justify-between mb-2">
+                    <p class="text-primary text-xs md:text-sm font-bold">ВСЕГО</p>
+                    <span class="text-2xl">📱</span>
+                </div>
+                <p id="stat-total" class="text-2xl md:text-3xl font-black text-primary neon-text">0</p>
+            </div>
+            
+            <div class="glass rounded-xl p-4 md:p-6 border border-emerald-500/50 hover-lift fade-in">
+                <div class="flex items-center justify-between mb-2">
+                    <p class="text-emerald-600 text-xs md:text-sm font-bold">СВОБОДНЫЕ</p>
+                    <span class="text-2xl">✓</span>
+                </div>
+                <p id="stat-free" class="text-2xl md:text-3xl font-black text-emerald-600 neon-text">0</p>
+            </div>
+            
+            <div class="glass rounded-xl p-4 md:p-6 border border-purple-500/50 hover-lift fade-in">
+                <div class="flex items-center justify-between mb-2">
+                    <p class="text-purple-600 text-xs md:text-sm font-bold">ВЫДАННЫЕ</p>
+                    <span class="text-2xl">👤</span>
+                </div>
+                <p id="stat-assigned" class="text-2xl md:text-3xl font-black text-purple-600 neon-text">0</p>
+            </div>
+            
+            <div class="glass rounded-xl p-4 md:p-6 border border-red-500/50 hover-lift fade-in">
+                <div class="flex items-center justify-between mb-2">
+                    <p class="text-red-600 text-xs md:text-sm font-bold">ПОЛОМАННЫЕ</p>
+                    <span class="text-2xl">⚠</span>
+                </div>
+                <p id="stat-broken" class="text-2xl md:text-3xl font-black text-red-600 neon-text">0</p>
+            </div>
+        </div>
+        
+         Updated activity log with theme-aware styling 
+        <div class="glass rounded-xl p-4 md:p-6 mb-4 md:mb-6 fade-in">
+            <h3 class="text-lg md:text-xl font-bold text-primary mb-4 flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                ПОСЛЕДНИЕ ДЕЙСТВИЯ
+            </h3>
+            <div id="activity-log" class="space-y-2">
+                <p class="text-muted text-sm">Нет записей</p>
+            </div>
+        </div>
+        
+         Updated controls with theme-aware input and button styles 
+        <div class="glass rounded-xl p-4 md:p-6 mb-4 md:mb-6 fade-in">
+            <div class="flex flex-col lg:flex-row gap-3 md:gap-4">
+                <div class="flex-1">
+                    <div class="relative">
+                        <input 
+                            type="text" 
+                            id="search-input" 
+                            placeholder="Поиск..."
+                            class="w-full input-field border rounded-lg px-4 py-2 md:py-3 focus:outline-none"
+                        >
+                        <svg class="absolute right-3 md:right-4 top-1/2 -translate-y-1/2 w-4 h-4 md:w-5 md:h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+                
+                <select id="status-filter" class="input-field border rounded-lg px-4 py-2 md:py-3 focus:outline-none cursor-pointer">
+                    <option value="all">Все статусы</option>
+                    <option value="free">Свободные</option>
+                    <option value="assigned">Выданные</option>
+                    <option value="broken">Поломанные</option>
+                </select>
+                
+                <button id="add-phone-btn" class="btn-primary font-bold px-4 md:px-6 py-2 md:py-3 rounded-lg hover-lift whitespace-nowrap">
+                    + ДОБАВИТЬ
+                </button>
+                
+                <button id="export-csv-btn" class="btn-secondary border font-bold px-4 md:px-6 py-2 md:py-3 rounded-lg hover-lift whitespace-nowrap">
+                    CSV
+                </button>
+            </div>
+        </div>
+        
+         Updated table with theme-aware styling 
+        <div class="glass rounded-xl overflow-hidden fade-in hidden lg:block">
+            <div class="overflow-x-auto">
+                <table id="phones-table" class="w-full">
+                    <thead>
+                        <tr id="table-header" class="table-header border-b">
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div id="mobile-cards" class="lg:hidden space-y-3 md:space-y-4">
+        </div>
+    </div>
+    
+     Updated modal with theme-aware styling 
+    <div id="edit-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 modal-backdrop">
+        <div class="glass rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-primary fade-in">
+            <div class="p-4 md:p-6">
+                <div class="flex justify-between items-center mb-4 md:mb-6">
+                    <h2 class="text-xl md:text-2xl font-bold text-primary">РЕДАКТИРОВАНИЕ</h2>
+                    <button id="close-modal" class="text-primary hover:text-purple-500 text-2xl md:text-3xl leading-none">&times;</button>
+                </div>
+                
+                <form id="edit-form" class="space-y-4">
+                    <input type="hidden" id="edit-id">
+                    
+                    <div class="flex justify-center mb-4 md:mb-6">
+                        <img id="phone-image" src="/placeholder.svg" alt="Phone" class="w-32 h-32 md:w-48 md:h-48 object-contain rounded-lg border border-primary">
+                    </div>
+                    
+                    <div id="edit-fields-container" class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+                    </div>
+                    
+                    <div class="flex gap-3 md:gap-4 pt-4">
+                        <button type="submit" class="flex-1 btn-primary font-bold px-4 md:px-6 py-2 md:py-3 rounded-lg">
+                            СОХРАНИТЬ
+                        </button>
+                        <button type="button" id="delete-phone-btn" class="flex-1 bg-red-500/20 border border-red-500 text-red-500 hover:bg-red-500/30 font-bold px-4 md:px-6 py-2 md:py-3 rounded-lg">
+                            УДАЛИТЬ
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module" src="main.js"></script>
+</body>
+</html>
