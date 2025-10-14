@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация | SkuffCall</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style type="text/tailwindcss">
+        @layer base {
+            * {
+                @apply transition-colors duration-200;
+            }
+            
+            body {
+                font-family: 'Share Tech Mono', monospace;
+            }
+            
+            h1, h2, h3, h4, h5, h6, .heading {
+                font-family: 'Orbitron', sans-serif;
+            }
+        }
+        
+        @layer components {
+            body[data-theme="dark"] {
+                @apply bg-gradient-to-br from-[#0a0a0f] via-[#0f172a] to-[#1a1a2e] text-slate-100;
+            }
+            
+            body[data-theme="light"] {
+                @apply bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 text-slate-900;
+            }
+            
+            body[data-theme="dark"] .glass {
+                background: rgba(255, 255, 255, 0.03);
+                backdrop-filter: blur(8px);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+            }
+            
+            body[data-theme="light"] .glass {
+                background: rgba(255, 255, 255, 0.8);
+                backdrop-filter: blur(8px);
+                border: 1px solid rgba(0, 0, 0, 0.1);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+            
+            body[data-theme="dark"] .text-primary {
+                @apply text-cyan-400;
+            }
+            
+            body[data-theme="light"] .text-primary {
+                @apply text-blue-600;
+            }
+            
+            body[data-theme="dark"] .input-field {
+                @apply bg-black/30 border-cyan-400/30 text-cyan-100 placeholder-cyan-400/50;
+            }
+            
+            body[data-theme="dark"] .input-field:focus {
+                @apply border-cyan-400;
+            }
+            
+            body[data-theme="light"] .input-field {
+                @apply bg-white border-slate-300 text-slate-900 placeholder-slate-400;
+            }
+            
+            body[data-theme="light"] .input-field:focus {
+                @apply border-blue-500;
+            }
+            
+            body[data-theme="dark"] .btn-primary {
+                @apply bg-gradient-to-r from-cyan-500 to-magenta-500 hover:from-cyan-400 hover:to-magenta-400 text-white;
+            }
+            
+            body[data-theme="light"] .btn-primary {
+                @apply bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white;
+            }
+            
+            body[data-theme="dark"] .neon-text {
+                text-shadow: 0 0 1px currentColor;
+            }
+            
+            body[data-theme="light"] .neon-text {
+                text-shadow: none;
+            }
+            
+            @keyframes fadeInScale {
+                from {
+                    opacity: 0;
+                    transform: scale(0.98);
+                }
+                to {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+            
+            .fade-in {
+                animation: fadeInScale 0.3s ease-out;
+            }
+        }
+    </style>
+</head>
+<body data-theme="dark" class="min-h-screen flex items-center justify-center p-4">
+    <div id="cursor-glow" class="fixed w-96 h-96 rounded-full pointer-events-none z-50 opacity-[0.01] blur-3xl transition-all duration-300 hidden" style="background: radial-gradient(circle, #00ffff 0%, transparent 70%); transform: translate(-50%, -50%);"></div>
+    
+    <div class="w-full max-w-md fade-in">
+        <div class="text-center mb-8">
+            <img id="brand-logo" src="/public/skuffcall-logo-neon.png" alt="SkuffCall" class="w-32 h-32 mx-auto mb-4 object-contain">
+            <h1 class="text-3xl md:text-4xl font-black text-primary neon-text mb-2">SKUFFCALL</h1>
+            <p class="text-orange-500 font-bold tracking-wide">Не работает - да и пох!</p>
+        </div>
+        
+        <div class="glass rounded-2xl p-6 md:p-8 border border-cyan-400/30">
+            <h2 class="text-2xl font-bold text-primary mb-6 text-center">РЕГИСТРАЦИЯ</h2>
+            
+            <form id="register-form" class="space-y-4">
+                <div>
+                    <label class="block text-primary text-sm font-bold mb-2">Имя пользователя</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        required
+                        minlength="3"
+                        class="w-full input-field border rounded-lg px-4 py-3 focus:outline-none"
+                        placeholder="Минимум 3 символа"
+                    >
+                </div>
+                
+                <div>
+                    <label class="block text-primary text-sm font-bold mb-2">Email</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        required
+                        class="w-full input-field border rounded-lg px-4 py-3 focus:outline-none"
+                        placeholder="example@skuffcall.com"
+                    >
+                </div>
+                
+                <div>
+                    <label class="block text-primary text-sm font-bold mb-2">Пароль</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        required
+                        minlength="6"
+                        class="w-full input-field border rounded-lg px-4 py-3 focus:outline-none"
+                        placeholder="Минимум 6 символов"
+                    >
+                </div>
+                
+                <div>
+                    <label class="block text-primary text-sm font-bold mb-2">Подтверждение пароля</label>
+                    <input 
+                        type="password" 
+                        id="confirm-password" 
+                        required
+                        minlength="6"
+                        class="w-full input-field border rounded-lg px-4 py-3 focus:outline-none"
+                        placeholder="Повторите пароль"
+                    >
+                </div>
+                
+                <div class="flex items-start gap-2">
+                    <input type="checkbox" id="terms" required class="w-4 h-4 mt-1 accent-cyan-400">
+                    <label for="terms" class="text-primary text-sm">
+                        Я согласен с <a href="#" class="text-magenta-400 hover:text-magenta-300 transition-colors">условиями использования</a> и <a href="#" class="text-magenta-400 hover:text-magenta-300 transition-colors">политикой конфиденциальности</a>
+                    </label>
+                </div>
+                
+                <button type="submit" class="w-full btn-primary font-bold px-6 py-3 rounded-lg transition-all">
+                    ЗАРЕГИСТРИРОВАТЬСЯ
+                </button>
+            </form>
+            
+            <div class="mt-6 text-center">
+                <p class="text-primary text-sm">
+                    Уже есть аккаунт? 
+                    <a href="login.html" class="text-magenta-400 hover:text-magenta-300 font-bold transition-colors">Войти</a>
+                </p>
+            </div>
+            
+            <div class="mt-6 text-center">
+                <button id="theme-toggle" class="text-primary hover:text-magenta-400 text-sm font-bold transition-colors">
+                    <span id="theme-name">НЕОН ТЬМЫ</span> ⚡
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let theme = localStorage.getItem('theme') || 'dark';
+        
+        function applyTheme() {
+            const body = document.body;
+            const themeName = document.getElementById('theme-name');
+            const brandLogo = document.getElementById('brand-logo');
+            const cursorGlow = document.getElementById('cursor-glow');
+            
+            body.setAttribute('data-theme', theme);
+            
+            if (theme === 'light') {
+                themeName.textContent = 'ТЕХНО-СВЕТ';
+                brandLogo.src = '/public/skuffcall-logo-grungy.png';
+                cursorGlow.classList.add('hidden');
+            } else {
+                themeName.textContent = 'НЕОН ТЬМЫ';
+                brandLogo.src = '/public/skuffcall-logo-neon.png';
+                cursorGlow.classList.remove('hidden');
+            }
+        }
+        
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            theme = theme === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('theme', theme);
+            applyTheme();
+        });
+        
+        const cursorGlow = document.getElementById('cursor-glow');
+        document.addEventListener('mousemove', (e) => {
+            cursorGlow.style.left = e.clientX + 'px';
+            cursorGlow.style.top = e.clientY + 'px';
+        });
+        
+        document.getElementById('register-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const terms = document.getElementById('terms').checked;
+            
+            if (password !== confirmPassword) {
+                alert('Пароли не совпадают!');
+                return;
+            }
+            
+            if (!terms) {
+                alert('Необходимо согласиться с условиями использования');
+                return;
+            }
+            
+            // Здесь должна быть логика регистрации
+            console.log('Registration attempt:', { username, email, password });
+            
+            // Временная заглушка
+            alert('Регистрация успешна! (демо)');
+            window.location.href = 'login.html';
+        });
+        
+        applyTheme();
+    </script>
+</body>
+</html>
